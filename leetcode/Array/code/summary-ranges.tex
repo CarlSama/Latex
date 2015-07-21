@@ -1,0 +1,73 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a sorted integer array without duplicates, return the summary of its ranges.\\
+
+    \item{\textbf{Example}}\\
+		Input : [0,1,2,4,5,7]\\
+		Output: ["0->2","4->5","7"]\\
+
+    \item{\textbf{Anslysis}}\\
+		因为待处理的数字已经排序状态，所以在融合的时候，可以仅查看已排序状态的结尾\\
+		可以借助于stack，每次查看结尾的状态，看能不能融合\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Hash} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+	string toString(int i) {
+			string str;
+			if(i == 0) {
+					str += ('0');
+					return str;
+			}
+
+			bool isNeg = i < 0;
+			long il = ((long)i);
+			if(il < 0)
+					il *= -1;
+			while(il) {//无法处理为0的情况
+					str += (il%10 + '0');
+					il /= 10;
+			}
+			if(isNeg)
+					str += '-';
+			reverse(str.begin(),str.end());
+			return str;
+	}
+
+    vector<string> summaryRanges(vector<int>& nums) {
+	    vector<string>  result;
+
+	    if(nums.size() == 0)	return result;
+
+	    //用于清空之前未保存的值
+	    //num.back()+2本身不会被处理
+	    nums.push_back(nums.back()-2);
+
+	    int rangeBegin = nums[0],curr;//起码会有1+1个元素
+	    for(int idx=1;idx<nums.size();++idx) {
+		    curr = nums[idx];
+
+		    if(curr != nums[idx-1] + 1) {
+			    string str;
+			    if(nums[idx-1] == rangeBegin) {
+				    str += toString(rangeBegin);
+			    }else {
+				    str += toString(rangeBegin);
+				    str += "->";
+				    str += toString(nums[idx-1]);
+			    }
+			    result.push_back(str);
+
+			    rangeBegin = curr;
+		    }
+	    }
+	    return result;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

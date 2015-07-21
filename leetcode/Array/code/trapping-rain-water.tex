@@ -1,0 +1,90 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.\\
+
+    \item{\textbf{Anslysis}}\\
+		因为只有两个的高度合适，构成一个桶，才能积攒水。\\
+		1） 可以寻找最高的位置后，其他的位置都能依赖它而积攒水分.\\
+		2） 每次比较当前left，right的较小值，因为这个最小值可能和已存在本侧的max和较大值来组成挡板。这里有个潜在的条件，因为每次处理的都是较小的方向，所以当height[left] < height[right]时，maxLeft一定是小于heigth[right]的.\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+		int len;
+public:
+        /*
+         * Because the water was constrained by two side of flap
+         * It's covenient to get the max height, which means the other height can depend on it 
+         */
+	    int trap(vector<int>& height) {
+			len = height.size();
+			if(len == 0)	return 0;
+
+			int MaxheightIdx = 0;//Get the max height for safety
+			int currMaxHeight = height[0];
+			for(int idx = 1;idx < len;++idx){
+					if(currMaxHeight < height[idx]){
+							currMaxHeight = height[idx];
+                            MaxheightIdx = idx;
+                    }
+            }
+
+            int result = 0;
+
+            //we check the front part
+            int partlyMaxHeight = height[0];
+            int containedWater = 0;
+            for(int idx = 1;idx <= MaxheightIdx; ++idx){
+                    if(height[idx] < partlyMaxHeight)
+                            containedWater += partlyMaxHeight - height[idx];
+                    else{
+                            result += containedWater;
+                            containedWater = 0;
+                            partlyMaxHeight = height[idx];
+                    }
+            }
+
+            //we then check the back part
+            partlyMaxHeight = height[len-1];
+            containedWater = 0;
+            for(int idx = len-2; idx >= MaxheightIdx; --idx){
+                    if(height[idx] < partlyMaxHeight)
+                            containedWater += partlyMaxHeight - height[idx];
+                    else{
+                            result += containedWater;
+                            containedWater = 0;
+                            partlyMaxHeight = height[idx];
+                    }
+            }
+            return result;
+    	}
+};
+		\end{lstlisting}
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    int trap(int A[], int n) {
+        int left=0; int right=n-1;
+        int res=0;
+        int maxleft=0, maxright=0;
+        while(left<=right){
+            if(A[left]<=A[right]){
+                if(A[left]>=maxleft) maxleft=A[left];
+                else res+=maxleft-A[left];
+                left++;
+            }
+            else{
+                if(A[right]>=maxright) maxright= A[right];
+                else res+=maxright-A[right];
+                right--;
+            }
+        }
+        return res;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

@@ -1,0 +1,50 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).\\
+
+    \item{\textbf{Anslysis}}\\
+		1.	注意奇偶差异\\
+		2.	考虑借助于两个数组sorted的性质，采用分治的方法来处理．对于要寻找arr1和arr2中联合第k大的数值，可以定位arr1中的第x大，和arr2中的第y大，如果$arr1[x] > arr2[y]$那么说明arr1[x～n]都大于arr2[0~y]．如果我们希望只用这个信息来进行决策时，还需要考虑[0~x]，[0~y]与k的关系，较为复杂．这里可以采用在arr1和arr2中都定位k/2的位置，这样的话，就隐含了一个控制条件，如果$arr1[k/2]==arr2[k/2]$时，结果就为我们所需要的，它可以帮助我们来分析各段的长度信息．\\
+    \item{\textbf{Solution}}\\
+	\item{1. Merge} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		我们可以申请$2n$的空间，并且将两个数列在新的空间中放置，这会使用$O(n)$的时间，然后可以在$O(1)$的时间内获取中间值．
+	\item{2. Two Pointer} : \fbox{时间复杂度O($n$) , 空间复杂度O(1)}\\
+		使用两个指针分别指向两个数列的头部，根据指针指向对象的大小来移动指针，并记录已跳过的元素数目，以此来寻找第k大数．
+	\item{3. } : \fbox{时间复杂度O($n$) , 空间复杂度O(1)}\\
+		使用分治的方法，分别定位arr1和arr2中的k/2部分，以此来决定可以舍弃的信息．
+		\begin{lstlisting}
+class Solution {
+	int len1,len2;
+	public:
+		int findKth(vector<int>& nums1,int begin1,vector<int>& nums2,int begin2,int k){
+			int nums1Len = nums1.size() - begin1;
+			int nums2Len = nums2.size() - begin2;
+			if(nums1Len < nums2Len)	return findKth(nums2,begin2,nums1,begin1,k);//let nums1 longger
+			if(nums2Len==0)	return nums1[begin1 + k - 1];
+
+			if(k == 1)	return min(nums1[begin1], nums2[begin2]);
+
+			int idx2 = min(nums2Len, k/2);
+			int idx1 = k - idx2;
+			if(nums1[idx1 + begin1 - 1] > nums2[idx2 + begin2 - 1]){
+				return findKth(nums1,begin1,nums2,begin2+idx2,k-idx2);
+			}else if(nums1[idx1 + begin1 - 1] < nums2[idx2 + begin2 - 1]){
+				return findKth(nums1,begin1+idx1,nums2,begin2,k-idx1);
+			}else{
+				return nums1[idx1 + begin1 - 1];
+			}
+		}
+
+		double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+			len1 = nums1.size();	len2 = nums2.size();
+			if((len1 + len2) % 2)
+				return findKth(nums1,0,nums2,0,(len1+len2)/2+1);
+			else{
+				return ( findKth(nums1,0,nums2,0,(len1+len2)/2) + findKth(nums1,0,nums2,0,(len1+len2)/2+1) ) / 2.0 ;
+			}
+		}
+};
+		\end{lstlisting}
+\end{description}
+

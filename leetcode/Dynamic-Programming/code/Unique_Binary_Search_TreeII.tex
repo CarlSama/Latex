@@ -1,0 +1,57 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given n, generate all structurally unique BST's (binary search trees) that store values 1...n.\\
+
+    \item{\textbf{Anslysis}}\\
+		递归关系仍然为：
+		$P(n)=\sum_{n-1}^{k=0}(P(k)\ast P(n-k-1))$
+		满足动态规划的需求.如果使用递归构造的过程最为直接．但是时间不理想，有没有更好的思路？讨论一下吧～
+		
+
+    \item{\textbf{Solution}}\\
+	\item{1. DP} : \fbox{时间复杂度O($n ^ n$) , 空间复杂度O(1)}\\
+		子问题重叠 + 无后效性：\\
+
+    \begin{lstlisting}
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    vector<TreeNode *> dfs(int left,int right){
+        vector<TreeNode *> res;
+        if(right < left){
+            res.push_back(nullptr);
+            return res;
+        }   
+    
+        for(int i=left;i<=right;i++){//Use i as root
+            vector<TreeNode *> lSub = dfs(left,i-1);
+            vector<TreeNode *> rSub = dfs(i+1,right);
+            for(auto j : lSub){
+                for(auto k : rSub){
+                    TreeNode *root = new TreeNode(i);
+                    root->left = j;
+                    root->right = k;
+                    res.push_back(root);
+                }   
+            }   
+        }   
+    
+        return res;
+    }
+
+public:
+    vector<TreeNode *> generateTrees(int n) {
+            return dfs(1,n);
+    }
+};
+    \end{lstlisting}
+\end{description}
+

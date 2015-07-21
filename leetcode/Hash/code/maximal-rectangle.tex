@@ -1,0 +1,68 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of n positive integers and a positive integer s, find the minimal length of a subarray of which the sum ≥ s. If there isn't one, return 0 instead.
+
+    \item{\textbf{Example}}\\
+		Given the array [2,3,1,2,4,3] and s = 7, the subarray [4,3] has the minimal length under the problem constraint.
+
+    \item{\textbf{Anslysis}}\\
+		类似于minimal-window-substring，维护双指针来表征区间，然后不停的更新区间即可。因为每个元素最多被访问２次，所以时间复杂度为Ｏ(n）。\\
+		因为二分只适用于已排序的对象，所以我们必须获得一个已排序的对象。直接对nums做sort显然没有意义。考虑到nums中都是positive的，所以可以构造出累加和来作为待处理的对象。这样就满足了二分的基础。\\
+
+    \item{\textbf{Solution}}\\
+	\item{Hash} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		int countPrimes(int n) {
+			vector<bool> isPrime(n+1,true);
+
+			int end = sqrt(n);
+			for(int i=2;i<=end;++i) {
+				if(isPrime[i]) {
+					for(int j = i * i ; j< n; j += i) 
+						isPrime[j] = false;
+				}
+			}
+
+			int count = 0;
+			for(int i=2;i<n;++i) {
+				if(isPrime[i])
+					++count;
+			}
+
+			return count;
+		}
+};
+		\end{lstlisting}
+
+	\item{Binary Search} : \fbox{时间复杂度O($nlgn$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+    private int solveNLogN(int s, int[] nums) {
+        int[] sums = new int[nums.length + 1];
+        for (int i = 1; i < sums.length; i++) sums[i] = sums[i - 1] + nums[i - 1];
+        int minLen = Integer.MAX_VALUE;
+        for (int i = 0; i < sums.length; i++) {
+            int end = binarySearch(i + 1, sums.length - 1, sums[i] + s, sums);
+            if (end == sums.length) break;
+            if (end - i < minLen) minLen = end - i;
+        }
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
+
+    private int binarySearch(int lo, int hi, int key, int[] sums) {
+        while (lo <= hi) {
+           int mid = (lo + hi) / 2;
+           if (sums[mid] >= key){
+               hi = mid - 1;
+           } else {
+               lo = mid + 1;
+           }
+        }
+        return lo;
+    }
+
+		\end{lstlisting}
+\end{description}
+

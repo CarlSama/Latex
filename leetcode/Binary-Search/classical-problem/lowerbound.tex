@@ -1,0 +1,91 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+\begin{lstlisting}
+	/*
+	 * lower_bound(有序区间上)
+	 *
+	 * 返回第一个 >=value 的地址
+	 * [begin,end)中返回pos,使得[begin,pos)都<value,[pos,end)中元素都>=value
+	 */
+	template<typename ForwardIterator, typename Tp, typename Distance>
+	ForwardIterator _lower_bound(ForwardIterator begin,ForwardIterator end,const Tp& value,Distance*,forward_iterator_tag) {
+		Distance len = 0, half = 0;
+		distance(begin,end,len);
+
+		ForwardIterator mid = begin;
+		//使用了begin和len结合的方式,因为ForwardIterator的局限性
+		while(len) {
+			half = len / 2;
+			mid = advance(begin,half);
+
+			if(*mid < value) {
+				begin = ++mid;//<value的值都可以跳过
+				len = len - half - 1;
+			}else {
+				len = half;
+				//因为是求lower_bound
+				//当前这个>=value的*mid可能为最终结果,所以不能舍弃
+			}
+		}
+		return begin;
+	}
+	template<typename RandomAccessIterator,typename Tp,typename Distance>
+	RandomAccessIterator _lower_bound(RandomAccessIterator begin,RandomAccessIterator end,const Tp& value,Distance,random_access_iterator_tag) {
+		Distance half = 0 , len = end - begin;
+
+		RandomAccessIterator mid = begin;
+		while(len) {
+			half = len / 2;
+			mid = begin + half;
+
+			if(*mid < value) {
+				len = len - half - 1;
+				begin = ++mid;
+			}else{
+				len = half;
+			}
+		}
+		return begin;
+	}
+	template<typename ForwardIterator,typename Tp>
+	ForwardIterator lower_bound(ForwardIterator begin,ForwardIterator end,const Tp& value) {
+		typename iterator_traits<ForwardIterator>::difference_type distance;
+		typename iterator_traits<ForwardIterator>::iterator_category ic;
+		return _lower_bound(begin,end,value,distance,ic);
+	}
+\end{lstlisting}
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

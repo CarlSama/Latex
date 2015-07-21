@@ -1,0 +1,46 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+动态规划的经典题目可以参见戴方勤的＜手写代码必备＞．在此包含几道算法导论中题目的论证过程，以供学习．
+\subsection{Strassen's Algorithm}
+\input{Dynamic-Programming/classical-problem/strassen.tex}
+\subsection{Longest Common Substring}
+\input{Dynamic-Programming/classical-problem/lcs.tex}
+\subsection{Optimal Binary Search Tree}
+\input{Dynamic-Programming/classical-problem/obst.tex}
+
+
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

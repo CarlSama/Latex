@@ -1,0 +1,37 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+	Implement int sqrt(int x).\\
+		Compute and return the square root of x.\\
+
+    \item{\textbf{Anslysis}}\\
+		我们可以使用类似二分的方法来寻找结果．小心待处理的数太大造成溢出的问题.\\
+
+    \item{\textbf{Solution}}\\
+	\item{Binary Search} : \fbox{时间复杂度O($lgn$) , 空间复杂度O($1$)}\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		int mySqrt(int x) {
+			long long newX = x;
+			long long left=0,right=newX;
+			long long multiply;
+			while(left <= right){
+				long long mid = left + (right - left)/2;
+				multiply = mid * mid;
+				if(multiply == newX)	return mid;
+				if(multiply > newX)
+					right = mid - 1;
+				else 
+					left = mid + 1;
+			}
+			if(left * left == x)
+				return left;
+			return left - 1;
+		}
+};
+		\end{lstlisting}
+	\item{Sequential Search} : \fbox{}\\
+		本题目不能采用遍历比特位的方法．因为在比例比特位的方法中，我们的思路是$(a+b)^{2} = a^{2} + 2ab + b^{2}$,但是中间的$2ab$无法处理.\\
+		
+\end{description}
+

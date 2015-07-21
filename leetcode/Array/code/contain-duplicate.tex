@@ -1,0 +1,21 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of integers, find if the array contains any duplicates. Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct.\\
+
+    \item{\textbf{Anslysis}}\\
+		排序，时间复杂度Ｏ(nlgn + n),空间复杂度Ｏ(1)\\
+		哈希,时间复杂度O(n),空间复杂度O(n).\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        return nums.size() > set<int>(nums.begin(), nums.end()).size();        
+    }
+};		\end{lstlisting}
+
+\end{description}
+

@@ -1,0 +1,50 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+	Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.\\
+
+    \item{\textbf{Anslysis}}\\
+		可分析到子块的构成\\
+		(col,col) -> (col,maxRow-1-col) \\
+		.....\\
+		(maxCol-1-col,col] -> (maxCol-1-col,maxRow-1-col)\\
+		我们需要充足的限制条件：\\
+		1.	$maxCol-1-col \ge col \&\& maxRow-1-col \ge col$\\
+		2.	$col \ne maxCol-1-col$ ?\\
+		3.	$col \ne maxRow-1-col$ ?\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($m*n$) , 空间复杂度O($m*n$) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		vector<int> spiralOrder(vector<vector<int> >& matrix) {
+			vector<int> res;
+			int maxCol = matrix.size();
+			if(maxCol == 0 )	return res;
+			int maxRow = matrix[0].size();
+			if(maxRow == 0)	return res;
+
+			for(int col=0;col <= (maxCol-1)/2;++col){
+				if(maxCol-1-col >= col && maxRow-1-col >= col){
+					for(int i=col;i<=maxRow-1-col;++i)
+						res.push_back(matrix[col][i]);
+					for(int i=col+1;i<maxCol-1-col;++i)
+						res.push_back(matrix[i][maxRow-1-col]);
+					if(maxCol-1-col != col){
+						for(int i=maxRow-1-col;i>=col;--i)
+							res.push_back(matrix[maxCol-1-col][i]);
+					}
+					if(col != maxRow-1-col){
+						for(int i=maxCol-1-col-1;i>col;--i)
+							res.push_back(matrix[i][col]);
+					}
+				}
+			}
+
+			return res;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

@@ -1,0 +1,88 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a sorted array of integers, find the starting and ending position of a given target value.\\
+		Your algorithm's runtime complexity must be in the order of O(log n).\\
+		If the target is not found in the array, return [-1, -1].\\
+
+    \item{\textbf{Example}}\\
+		Input : [5, 7, 7, 8, 8, 10] and target value 8.\\
+		Output : [3, 4].\\
+
+    \item{\textbf{Anslysis}}\\		
+		在已排序数组中定位目标值，使用二分\\
+		分别寻找左边界和右边界\\
+		可使用的方法有三种：１）自己完成二分查找的过程；２）使用stl的lowerbouder（第一个不小于target的位置）和upperbound（第一个大于target的位置）；３）equalrange一次性获取lower和upper
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		int lowerBoud(vector<int>&nums,int target){
+			int left=0,right=len-1;
+			while(left <= right){
+				int mid = left + (right - left) /2;
+				if(nums[mid] < target)
+					left = mid + 1;
+				else if(nums[mid] > target)
+					right = mid - 1;
+				else{
+					if(mid==0 || nums[mid-1]!=target)
+						return mid+1;
+					else
+						right = mid -1;
+				}
+			}
+			return -1;
+		}
+		int upperBound(vector<int>&nums,int target){
+			int left=0,right=len-1;
+			while(left <= right){//need to have == here
+			int mid = left + (right - left) /2;
+				if(nums[mid] > target)
+					right = mid - 1;
+				else if(nums[mid] < target)
+					left = mid + 1;
+				else{
+					if(mid == len-1 || nums[mid+1]!=target)
+						return mid+1;
+					else
+						left = mid + 1;
+				}
+			}
+			return -1;
+		}
+		vector<int> searchRange2(vector<int>& nums, int target) {
+			len = nums.size();
+			if(len == 0)	return vector<int>(2,-1);
+			vector<int>::iterator low = lowerBoud(nums,target);
+			vector<int>::iterator upp = upperBound(nums,target);
+			vector<int> res;
+			res.push_back(low - nums.begin());	res.push_back(upp - nums.begin());
+			return res;
+		}
+		vector<int> searchRange1(vector<int>& nums, int target) {
+			vector<int>::iterator lo = std::lower_bound(nums.begin(),nums.end(),target);//first elem not less than target
+			vector<int>::iterator up = std::upper_bound(nums.begin(),nums.end(),target);//first elem great than target
+			if(lo == nums.end() || *lo != target)
+				return vector<int>(2,-1);
+			vector<int> res;
+			res.push_back(lo - nums.begin());	res.push_back(up - nums.begin() -1);
+			return res;
+		}
+		vector<int> searchRange(vector<int>& nums, int target) {
+			pair<vector<int>::iterator, vector<int>::iterator > bounds;
+			bounds = std::equal_range(nums.begin(), nums.end(), target);
+			if(bounds.first == nums.end() || *(bounds.first) != target)
+				return vector<int>(2,-1);
+			vector<int> res;
+			res.push_back(bounds.first - nums.begin());	res.push_back(bounds.second - nums.begin() -1);
+			return res;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

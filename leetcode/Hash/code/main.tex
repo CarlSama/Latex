@@ -1,0 +1,76 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+\subsection{anagrams}
+\input{Hash/code/anagrams.tex}
+
+\subsection{count-primes}
+\input{Hash/code/count-primes.tex}
+
+\subsection{fraction-to-recurring-decimal}
+\input{Hash/code/fraction-to-recurring-decimal.tex}
+
+\subsection{happy-number}
+\input{Hash/code/happy-number.tex}
+
+\subsection{substring-with-concatenation-of-all-words}
+\input{Hash/code/substring-with-concatenation-of-all-words.tex}
+
+\subsection{single-number.tex}
+\input{Hash/code/single-number.tex}
+
+\subsection{valid-sudoku}
+\input{Hash/code/valid-sudoku.tex}
+
+\subsection{maximal-rectangle}
+\input{Hash/code/maximal-rectangle.tex}
+
+\subsection{max-points-on-a-line}
+\input{Hash/code/max-points-on-a-line.tex}
+
+\subsection{minimal-window-substring}
+\input{Hash/code/minimal-window-substring.tex}
+
+\subsection{repeated-DNA-sequences}
+\input{Hash/code/repeated-DNA-sequences.tex}
+
+\subsection{isomorphics-string}
+\input{Hash/code/isomorphics-string.tex}
+
+\subsection{longest-substring-without-repeating-characters}
+\input{Hash/code/longest-substring-without-repeating-characters.tex}
+
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

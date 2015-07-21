@@ -1,0 +1,40 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of integers and an integer k, find out whether there there are two distinct indices i and j in the array such that nums[i] = nums[j] and the difference between i and j is at most k.\\
+
+    \item{\textbf{Anslysis}}\\
+		这里我们需要注意两点：(１)查找存在性问题时，使用hash非常快，\\
+		(2)我们不需要记录之前的数值的具体位置，可以将hash中的数据限定在一定范围之内\\
+		2.1 每次只记录最后出现的位置；\\
+		2.2 只需要记录Ｋ个元素；\\
+		2.2比2.1更能节省空间\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		bool containsNearbyDuplicate(vector<int>& nums, int k) {
+			unordered_set<int> us;
+			len = nums.size();
+			if(len ==0 || k < 0)	return false;
+
+			for(int idx=0;idx<len;++idx) {
+				/*
+				 * it's smart that we only matain k elems in set
+				 */
+				if( idx > k ) 
+					us.erase(nums[idx - k + 1]);
+
+				if(us.find(nums[idx]) != us.end())
+					return true;
+				us.insert(nums[idx]);
+			}
+			return false;
+		}
+};		\end{lstlisting}
+
+\end{description}
+

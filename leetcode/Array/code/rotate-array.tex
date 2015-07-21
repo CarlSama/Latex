@@ -1,0 +1,45 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Rotate an array of n elements to the right by k steps.\\
+
+    \item{\textbf{Example}}:\\%textbf加粗
+		With n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].\\
+
+    \item{\textbf{Anslysis}}\\
+		当然可以申请$O(n)$的空间来处理.\\
+		也可以通过三次旋转来实现$O(1)$空间的处理．\\
+		也可以交换first k和last k,然后反转last n-k.这个方法相比与上面，旋转次数更少！\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Rotate} : \fbox{时间复杂度O($n$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		void rangeRotate(vector<int>& nums,int from,int to){
+			int tmp;
+			while(from < to){
+				tmp = nums[from];
+				nums[from] = nums[to];
+				nums[to] = tmp;
+
+				++from;	--to;
+			}
+		}
+
+		void rotate(vector<int>& nums, int k) {
+			len = nums.size();
+			k = k % len;
+			if(k == 0)	return ;
+
+			//1)	Use auxilary array,O(n), O(k) ?
+			//2)	Two rotate !
+
+			rangeRotate(nums,0,len-1);
+			rangeRotate(nums,0,k-1);
+			rangeRotate(nums,k,len-1);
+		}
+};		
+		\end{lstlisting}
+\end{description}
+

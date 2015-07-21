@@ -1,0 +1,35 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.\\
+
+    \item{\textbf{Anslysis}}\\
+		我们需要想面试管确认字符的类型，是８位就能表示的char还是１６位的ＵＮＩＣＯＤＥ？\\
+		在每次遇到重复的字符后，只需要更新该字符出现的位置信息。\\
+
+
+    \item{\textbf{Solution}}\\
+	\item{Hash} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		int lengthOfLongestSubstring(string s) {
+			vector<int> isSeen(256, -1);
+
+			int maxLen = 0,begin =0;
+			for(int i=0 ; i < s.size() ; ++i) {
+				if(isSeen[s[i]] >= begin) {
+					maxLen = max(maxLen, i-isSeen[s[i]]);
+					begin = isSeen[s[i]] + 1;
+				}
+				isSeen[s[i]] = i;
+			}
+			maxLen = max(maxLen, (int)s.size() - begin);
+
+			return maxLen;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

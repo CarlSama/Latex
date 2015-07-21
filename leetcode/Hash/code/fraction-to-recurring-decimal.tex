@@ -1,0 +1,67 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.\\
+		If the fractional part is repeating, enclose the repeating part in parentheses.
+
+    \item{\textbf{Example}}\\
+		Given numerator = 1, denominator = 2, return "0.5".\\
+		Given numerator = 2, denominator = 1, return "2".\\
+		Given numerator = 2, denominator = 3, return "0.(6)".
+
+    \item{\textbf{Anslysis}}\\
+		检查是否存在环：查看处理结果在之前是否出现过。\\
+		注意正负数的问题；负数转正数溢出的问题；ｉｎｔ溢出的问题。\\
+
+    \item{\textbf{Solution}}\\
+	\item{Hash} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    string fractionToDecimal(int numerator, int denominator) {
+	    string result;
+		if( (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0))
+			result += '-';
+
+		//不能直接用abs，小心INT_MIN
+		long numeratorL = numerator > 0 ? numerator : (-1) * (long)numerator;
+		long denominatorL = denominator > 0 ? denominator : (-1) * (long)denominator;
+
+		int idx = 0;
+	    long integer = numeratorL / denominatorL;
+	    result += (integer > 0) ? to_string(integer) : "0";
+	    numeratorL -= integer*denominatorL; 
+
+		if(numeratorL) {
+		    result += '.';
+
+			//某个numeratorL出现时前段开始的位置
+			unordered_map<int,int> isSeen;
+
+			while(numeratorL) {
+				if(isSeen.find(numeratorL) == isSeen.end()) {
+						//当前这个numeratorL开始的位置是result.size()
+						isSeen.insert(pair<int,int>(numeratorL,result.size()));
+
+						numeratorL *= 10;
+						integer = numeratorL / denominatorL;
+
+						result += to_string(integer);
+
+						numeratorL -= integer*denominatorL;
+				}else{
+						//在 重复串开头前加上'('号
+						result.insert(isSeen[numeratorL],"(");
+						result += ")";
+						break;
+				}
+			}
+		}
+
+		return result;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

@@ -1,0 +1,33 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given numRows, generate the first numRows of Pascal's triangle.\\
+
+    \item{\textbf{Anslysis}}\\
+		可以从后往前处理来节省所需空间.\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		vector<vector<int> > generate(int numRows) {
+			vector<vector<int> > res;
+			if(numRows == 0)	return res;
+
+			vector<int> level;
+			level.push_back(1);
+			for(int i=1;i<=numRows;++i){
+				res.push_back(level);
+
+				for(int idx=level.size()-1 ; idx>0 ; --idx)
+					level[idx] = level[idx] + level[idx-1];
+				level.push_back(1);
+			}
+			return res;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

@@ -1,0 +1,99 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Divide two integers without using multiplication, division and mod operator.\\
+		If it is overflow, return MAX\_INT.\\
+
+    \item{\textbf{Anslysis}}\\
+		假设被除数为s，除数为t，则s和ｔ之间存在$s/t=k$.\\
+		＝＞$s = k \ast  t = ((0/1)\ast 2^{m} + (0/1)\ast2^{m-1} + .... + (0/1)\ast2^{0}) \ast t$\\
+		我们可以使用移位操作来判断每个位置的存在性．\\
+		这里的性质说明了，任意正整数都可以表示为$2 ^ n$的和，而确定存在性的过程可以使用移位操作来二分的处理．\\
+		这题目无法使用*，所以需要对t做移位操作来模拟乘二的行为．\\
+		要处理０为除数，０为被除数，有正有负，除不尽，能除尽的情况\\
+		在进行处理时，推荐使用long long类型，因为int类型在临界情况下会溢出，造成死循环．\\
+
+    \item{\textbf{Solution}}\\
+	\item{Binary Search} : \fbox{时间复杂度O($lgn$) , 空间复杂度O($1$)}\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		int divide(int dividend, int divisor) {
+			if(divisor == 0)	return INT_MAX;
+			if(dividend == 0)	return 0;
+
+			int flag = (dividend>0&&divisor<0 || dividend<0&&divisor>0)?-1:1;
+			long long ldividend = abs((long long)dividend);
+			//注意啊！无法使用int来接受
+			long long ldivisor = abs((long long)divisor);
+			if(ldividend < ldivisor)	return 0;
+			if(ldividend == ldivisor)	return flag;
+
+			long long result = 0;
+			//在处理INT_MIN／１时会造成result（ｉｎｔ)溢出
+			while(ldividend >= ldivisor){
+				long long tmpRes = 1;
+				long long moreDivisor = ldivisor;
+				//这里需要使用long long
+				//不然可能造成溢出后进入死循环!
+				while((moreDivisor << 1) <= ldividend){
+					moreDivisor <<= 1;	tmpRes <<= 1;
+				}
+				result += tmpRes;
+				ldividend -= moreDivisor;
+			}
+			if(flag == -1){
+				if(result >= -1 * (long long)(INT_MIN))
+					return INT_MIN;
+				else
+					return flag * result;
+			}else{
+				if(result >= (long long)INT_MAX)
+					return INT_MAX;
+				else
+					return flag *result;
+			}
+		}
+};
+		\end{lstlisting}
+
+	\item{Binary Search} : \fbox{时间复杂度O($1$)? , 空间复杂度O($1$)}\\
+		因为结果为int类型，所以只需要考虑３２位的移动情况，所以可以分次遍历divisor所能右移的情况．\\
+		注意，需要从３１到０，\\
+		\begin{lstlisting}
+		int divide(int dividend, int divisor) {
+			if(divisor == 0)	return INT_MAX;
+			if(dividend == 0)	return 0;
+
+			int flag = (dividend>0&&divisor<0 || dividend<0&&divisor>0)?-1:1;
+			long long ldividend = abs((long long)dividend);
+			//注意啊！无法使用int来接受
+			long long ldivisor = abs((long long)divisor);
+			if(ldividend < ldivisor)	return 0;
+			if(ldividend == ldivisor)	return flag;
+
+			long long result = 0;
+			for(int i=31;i>=0;--i){
+				if((ldivisor<<i) <= ldividend){
+					result += ((long long)1)<<i;
+					//需要使用(long long)1，
+					//否则1<<i得到int后转换为long long 
+					ldividend -= (ldivisor<<i);
+				}
+			}
+			if(flag == -1){
+				if(result >= -1 * (long long)(INT_MIN))
+					return INT_MIN;
+				else
+					return flag * result;
+			}else{
+				if(result >= (long long)INT_MAX)
+					return INT_MAX;
+				else
+					return flag *result;
+			}
+		}
+		\end{lstlisting}
+
+\end{description}
+

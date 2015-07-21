@@ -1,0 +1,37 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Determine if a Sudoku is valid.\\
+		A valid Sudoku board (partially filled) is not necessarily solvable. Only the filled cells need to be validated.
+
+    \item{\textbf{Anslysis}}\\
+		对于(i)(j)位置的某个元素k，我们需要查看行，列，三角形中是否已经存在了k。对于这个查找过程，可以使用ｈａｓｈ来加速。\\
+		在本问题中，因为待确定问题的状态空间只有１～９，所以可以使用数组解决。\\
+
+    \item{\textbf{Solution}}\\
+	\item{Hash} : \fbox{时间复杂度O($n^2$) , 空间复杂度O($n$)\\
+		\begin{lstlisting}
+class Solution
+{
+public:
+    bool isValidSudoku(vector<vector<char> > &board)
+    {
+        int used1[9][9] = {0}, used2[9][9] = {0}, used3[9][9] = {0};
+
+        for(int i = 0; i < board.size(); ++ i)
+            for(int j = 0; j < board[i].size(); ++ j)
+                if(board[i][j] != '.')
+                {
+                    int num = board[i][j] - '0' - 1, k = i / 3 * 3 + j / 3;
+                    if(used1[i][num] || used2[j][num] || used3[k][num])
+                        return false;
+                    used1[i][num] = used2[j][num] = used3[k][num] = 1;
+                }
+
+        return true;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

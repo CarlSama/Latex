@@ -1,0 +1,82 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.\\
+
+    \item{\textbf{Example}}:\\
+		For "(()", the longest valid parentheses substring is "()", which has length = 2.\\
+		Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.\\
+
+    \item{\textbf{Anslysis}}\\
+		求最优化的问题，可以考虑使用动态规划．本问题具有无后效性，重叠自问题的性质．\\
+		以dp[i]表示s[i]所能向前匹配到的括号数目．\\
+		$p(i)= InDict(s[i,k]) \&\& p(k-1), 0\leq k< i$
+
+    \item{\textbf{Solution}}\\
+	\item{1. DFS} : \fbox{时间复杂度O($2^n$) , 空间复杂度O(n)  TLE}\\
+		\begin{lstlisting}
+class Solution {
+	int maxLen;
+	bool isValid;
+	public:
+		void btrack(string s,unordered_set<string>& wordDict,int curr,string &tmpStr){
+			if(isValid) return ;
+			if(curr == s.size()){
+				isValid = wordDict.find(tmpStr) != wordDict.end();
+				return ;
+			}
+			if(tmpStr.size() > maxLen || tmpStr.size()==maxLen && wordDict.find(tmpStr)==wordDict.end()) return ;
+			tmpStr.push_back(s[curr]);//append
+			btrack(s,wordDict,curr+1,tmpStr);
+			tmpStr.pop_back();
+			if(!isValid && wordDict.find(tmpStr) != wordDict.end()){//as new
+				string str(tmpStr);
+				tmpStr = s[curr];
+				btrack(s,wordDict,curr+1,tmpStr);
+				tmpStr = str;
+			}
+		}
+		int getMaxLen(unordered_set<string>& wordDict){
+			maxLen = 0;
+			for(auto str : wordDict)
+				maxLen = maxLen > str.size() ? maxLen : str.size();
+		}
+		bool wordBreak(string s, unordered_set<string>& wordDict) {
+			getMaxLen(wordDict);
+			string tmpStr;
+			isValid = false;
+			btrack(s,wordDict,0,tmpStr);
+			return isValid;
+		}
+};
+		\end{lstlisting}
+
+	\item{2. DP} : \fbox{时间复杂度O($n^2$) , 空间复杂度O(n)}\\
+		最优子结构的性质：如果s[1,k]可以被dict划分，s[k,j]又存在于dict中，那么自然s[i,j]就可以被dict划分；\\
+		子问题重叠：对于s="bbcandaa"和dict=["b","bc","and","anda","a","aa"]的情况，在计算and时，and之前的可划分性（p[0,2]）被计算；在之后处理anda时，anda之前的可划分性(p[0,2])又会被需要．\\
+		无后效性：对于某个位置的决策只依赖于前一位置是否可划分，并且只依赖于之前的某一个决策（无并行后效性）；也无后方后效性．\\
+
+    \begin{lstlisting}
+class Solution {
+	public:
+		bool wordBreak(string s, unordered_set<string>& wordDict) {
+			vector<bool> dp(s.size()+1,false);//dp[i] -> [0,i-1]
+			dp[0] = true;
+			for(int i=0;i<s.size();++i){
+				for(int j=i;j>=0;--j){//[j,i]
+					if(dp[j+1-1]){//[0,j-1] == true;
+						string subStr = s.substr(j,i-j+1);
+						if(wordDict.find(subStr)!=wordDict.end()){
+							dp[i+1] = true;
+							break;
+						}
+					}
+				}
+			}
+			return dp[s.size()];
+	    }
+};
+    \end{lstlisting}
+	\textit{只需一个维度即可解决问题}
+\end{description}
+

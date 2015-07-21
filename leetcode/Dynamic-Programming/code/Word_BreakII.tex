@@ -1,0 +1,120 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.Return all such possible sentences.
+    \item{\textbf{Example}}:\\
+		s = "catsanddog",
+		dict = ["cat", "cats", "and", "sand", "dog"].
+		A solution is ["cats and dog", "cat sand dog"].
+    \item{\textbf{Anslysis}}\\
+		假设p(i)存储bool值，表示s[0,i]的子串是否可以使用dict划分.则:\\
+		$p(i)= InDict(s[i,k]) \&\& p(k-1), 0\leq k< i$
+
+    \item{\textbf{Solution}}\\
+	\item{1. DFS} : \fbox{时间复杂度O($2^n$) , 空间复杂度O(n)  TLE}\\
+		\begin{lstlisting}
+class Solution {
+	private:
+		string subStr,str;
+		vector<string> res;
+		unordered_set<string> myDict;
+		int longestLen;
+	public:
+		void btrack(string s,int currIdx,string& subStr){
+			if(currIdx == s.size()){
+				if(subStr.size()==0){
+					res.push_back(str);
+				}else if(myDict.find(subStr)!=myDict.end()){
+					string origStr(str);
+					str+= ' ';
+					str += subStr;
+					res.push_back(str);
+					str = origStr;
+				}
+				return ;
+			}
+			//not merge current -> subStr must be valid
+			if(myDict.find(subStr)!=myDict.end()){
+				string origStr(str);
+				string origSubStr(subStr);
+
+				str+= ' ';//always have a leading blank 
+				str += subStr;
+				subStr = s[currIdx];
+				btrack(s,currIdx+1,subStr);
+				subStr = origSubStr;
+				str = origStr;
+			}
+			subStr.push_back(s[currIdx]);
+			if(subStr.size() <= longestLen)//too long to discard 
+				btrack(s,currIdx+1,subStr);
+			subStr.pop_back();
+		}
+		void getLongestLen(){
+			longestLen = 0;
+			for(auto iter=myDict.begin();iter!=myDict.end();++iter){
+				longestLen = max(longestLen, (int)(*iter).size());
+			}
+		}
+
+		vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+			myDict = wordDict;
+			getLongestLen();
+			btrack(s,0,subStr);
+			return res;
+		}
+};
+		\end{lstlisting}
+
+	\item{2. DP} : \fbox{时间复杂度O($n^2$) , 空间复杂度O($n^2$)}\\
+    \begin{lstlisting}
+class Solution {
+	int len;
+	vector<string> vs;
+	vector<string> path;
+	public:
+		void genPath(string& s,int currIdx,vector<vector<int> > &dp){
+			if(currIdx == 0){
+				//从tmp中生成
+				string str;
+				for(int i=path.size()-1;i>=0;--i){
+					str += path[i];
+					str += ' ';
+				}
+				str.pop_back();
+				
+				vs.push_back(str);
+				return ;
+			}
+
+			for(int i = 0 ; i < dp[currIdx].size() ; ++i){
+				string part =  s.substr(dp[currIdx][i]-1 , currIdx - dp[currIdx][i] + 1);
+				path.push_back(part);
+				genPath(s, dp[currIdx][i]-1,dp);
+				path.pop_back();
+			}
+		}
+
+		vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+			len = s.size();
+			if(len ==0 || wordDict.size() ==0 )	return vs;
+
+			vector<vector<int> > dp(len+1,vector<int>());
+			dp[0].push_back(-1);
+
+			for(int i=0;i<len;++i){
+				for(int j=0;j<=i;++j){
+					if(wordDict.find(s.substr(j,i-j+1)) != wordDict.end() && dp[j].size() != 0){
+						dp[i+1].push_back(j+1);
+					}
+				}
+			}
+
+			genPath(s,len,dp);
+			return vs;
+		}
+};
+    \end{lstlisting}
+	与之前的题目相比多了恢复路径的过程，这就需要我们在dp时存储中间跳转信息．
+\end{description}
+

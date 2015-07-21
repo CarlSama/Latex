@@ -1,0 +1,81 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of M x N rooms laid out in a 2D grid. Our valiant knight (K) was initially positioned in the top-left room and must fight his way through the dungeon to rescue the princess.\\
+		The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately.\\
+		Some of the rooms are guarded by demons, so the knight loses health (negative integers) upon entering these rooms; other rooms are either empty (0's) or contain magic orbs that increase the knight's health (positive integers).\\
+		In order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.\\
+
+    \item{\textbf{Anslysis}}\\
+		这是一道非常好的题目．有的问题有多重子问题的划分方法，在其中有的划分方法中会存在有后效性；这是我们应该尝试寻找无后效性且具有最右子结构的划分．\\
+		对于这个题目，如果我们将dp[m,n]定义为从[0,0]走到[m,n]时所需的最少血量，这时就有一个问题，每次的决策即依赖于之前最小血量的路径，又以来与从不通路径走后当前剩余的血量，这个当前剩余的血量会影响到对之后路径的选择，所以这个角度分析问题是有后效性的：（\\
+		我们将dp[i,j]看做是从[i,j]开始到重点时所需的最少血量，也就是说[i,j]总是被认为是起点，这样就不存在剩余血量的说法了，也就没有了后效性．：）
+
+    \item{\textbf{Solution}}\\
+	\item{1. DFS} : \fbox{时间复杂度O($2^n$) , 空间复杂度O(n)  TLE}\\
+		\begin{lstlisting}
+class Solution {
+	int maxLen;
+	bool isValid;
+	public:
+		void btrack(string s,unordered_set<string>& wordDict,int curr,string &tmpStr){
+			if(isValid) return ;
+			if(curr == s.size()){
+				isValid = wordDict.find(tmpStr) != wordDict.end();
+				return ;
+			}
+			if(tmpStr.size() > maxLen || tmpStr.size()==maxLen && wordDict.find(tmpStr)==wordDict.end()) return ;
+			tmpStr.push_back(s[curr]);//append
+			btrack(s,wordDict,curr+1,tmpStr);
+			tmpStr.pop_back();
+			if(!isValid && wordDict.find(tmpStr) != wordDict.end()){//as new
+				string str(tmpStr);
+				tmpStr = s[curr];
+				btrack(s,wordDict,curr+1,tmpStr);
+				tmpStr = str;
+			}
+		}
+		int getMaxLen(unordered_set<string>& wordDict){
+			maxLen = 0;
+			for(auto str : wordDict)
+				maxLen = maxLen > str.size() ? maxLen : str.size();
+		}
+		bool wordBreak(string s, unordered_set<string>& wordDict) {
+			getMaxLen(wordDict);
+			string tmpStr;
+			isValid = false;
+			btrack(s,wordDict,0,tmpStr);
+			return isValid;
+		}
+};
+		\end{lstlisting}
+
+	\item{2. DP} : \fbox{时间复杂度O($n^2$) , 空间复杂度O(n)}\\
+		最优子结构的性质：如果s[1,k]可以被dict划分，s[k,j]又存在于dict中，那么自然s[i,j]就可以被dict划分；\\
+		子问题重叠：对于s="bbcandaa"和dict=["b","bc","and","anda","a","aa"]的情况，在计算and时，and之前的可划分性（p[0,2]）被计算；在之后处理anda时，anda之前的可划分性(p[0,2])又会被需要．\\
+		无后效性：对于某个位置的决策只依赖于前一位置是否可划分，并且只依赖于之前的某一个决策（无并行后效性）；也无后方后效性．\\
+
+    \begin{lstlisting}
+class Solution {
+	public:
+		bool wordBreak(string s, unordered_set<string>& wordDict) {
+			vector<bool> dp(s.size()+1,false);//dp[i] -> [0,i-1]
+			dp[0] = true;
+			for(int i=0;i<s.size();++i){
+				for(int j=i;j>=0;--j){//[j,i]
+					if(dp[j+1-1]){//[0,j-1] == true;
+						string subStr = s.substr(j,i-j+1);
+						if(wordDict.find(subStr)!=wordDict.end()){
+							dp[i+1] = true;
+							break;
+						}
+					}
+				}
+			}
+			return dp[s.size()];
+	    }
+};
+    \end{lstlisting}
+	\textit{只需一个维度即可解决问题}
+\end{description}
+

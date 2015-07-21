@@ -1,0 +1,46 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).\\
+		You may assume that the intervals were initially sorted according to their start times.\\
+
+    \item{\textbf{Anslysis}}\\
+		灵感来自于array的另一到题目，我们可以在newInterval被完整接纳之前一致维护着它，直到非交叉的情况，注意使用标志位来避免漏加了newInterval\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		bool isOverlapped(Interval l1,Interval l2) {
+			return !(l1.start > l2.end || l2.start > l1.end);
+		}
+
+		vector<Interval> insert(vector<Interval>& intervals, Interval newInterval) {
+			vector<Interval> res;
+
+			bool isUsed = false;
+			bool hasOverlapped = false;
+			for(int i=0;i<intervals.size();++i) {
+				if(!isOverlapped(intervals[i],newInterval)) {
+					if(intervals[i].start > newInterval.end && !isUsed) {
+						res.push_back(newInterval);
+						isUsed = true;
+					}
+					res.push_back(intervals[i]);
+				}else{
+					newInterval.start = min(newInterval.start, intervals[i].start);
+					newInterval.end = max(newInterval.end, intervals[i].end);
+				}
+			}
+
+			if(!isUsed)
+				res.push_back(newInterval);
+
+			return res;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

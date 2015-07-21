@@ -1,0 +1,54 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+LCS的题目为有两个字符串$x = x_{1}, x_{2}....x_{n}$和$y = y_{1}, y_{2}....y_{n}$,求Ｘ串和Ｙ串的最长公共子串，这个子串可以是非连续的．\\
+
+1).	证明问题具有最优子结构性质．假设$x = x_{1}, x_{2}....x_{m}$和$y = y_{1}, y_{2}....y_{n}$的最长公共子串为$z = z_{1}, z_{2}....z_{k}$,则存在如下的递归关系：\\
+
+$LCS_{m,n}=\left\{\begin{matrix}
+		LCS_{m-1,n-1} + 1 & x_{m}= y_{n}\\ 
+		\max (LCS_{m-1,n},LCS_{m,n-1}) & x_{m} \neq y_{n}
+	\end{matrix}\right.$\\
+
+对于第一种情况，（１）如果$z_{k} \neq y_{n}$,那么可以将$y_{n}$加入到$LCS_{m,n}$得到更长的公共子串，矛盾．（２）如果$LCS_{m-1,n-1}$具有比$Z_{k-1}$更长的子串，那么使用更长的子串来替换，会的到比$Z_{k}$更长的子串，矛盾．\\
+
+对于第二种情况，若$X_{m-1}$和$Y_{n}$具有比$LCS_{m-1,n}$更长的子串，那么使用它来替换$LCS_{m,n}$会的到更优的解，矛盾．\\
+
+第三种情况可以参考第二种情况的证明．\\
+
+2).	计算代价．原问题只有$O(m \ast n)$个子问题．此外，我们可以尝试状态压缩来节省空间开销．状态压缩对于只求解最优解的问题有很大帮助，但是对于需要恢复路径的问题不适宜．\\
+
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

@@ -1,0 +1,29 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Implement regular expression matching with support for '.' and '*'.\\
+		'.' Matches any single character.\\
+		'*' Matches zero or more of the preceding element.\\
+
+    \item{\textbf{Example}}:\\
+		isMatch("aa","a") → false\\
+		isMatch("aa","aa") → true\\
+		isMatch("aaa","aa") → false\\
+		isMatch("aa", "a*") → true\\
+		isMatch("aa", ".*") → true\\
+		isMatch("ab", ".*") → true\\
+		isMatch("aab", "c*a*b") → true\\
+
+    \item{\textbf{Anslysis}}\\
+		对于每个＇*＇都要从其匹配０个开始处理．同样，这道题需要提前的剪枝．预先判断s和p的实体长度来作比较．
+
+    \item{\textbf{Solution}}\\
+	\item{1. DP} : \fbox{时间复杂度O($m * n$) , 空间复杂度O($m * n$)  TLE}\\
+		\begin{lstlisting}
+		\end{lstlisting}
+	\item{3. Backtracking} : \fbox{时间复杂度O($n^2$) , 空间复杂度O(n)}\\
+		\begin{lstlisting}
+
+		\end{lstlisting}
+	%\textit{只需一个维度即可解决问题}
+\end{description}
+

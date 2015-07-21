@@ -1,0 +1,41 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of non-negative integers, you are initially positioned at the first index of the array.\\
+		Each element in the array represents your maximum jump length at that position.\\
+		Your goal is to reach the last index in the minimum number of jumps.\\
+
+    \item{\textbf{Example}}\\
+		Given array A = [2,3,1,1,4]\\
+		The minimum number of jumps to reach the last index is 2. (Jump 1 step from index 0 to 1, then 3 steps to the last index.)\\
+
+    \item{\textbf{Anslysis}}\\
+		我们从左向右的扫描数组，在某个位置i可以跳到位置i + steps[i]，如果这个位置之前没有被到达，则到达该位置的最少跳数就为i + steps[i].\\
+		使用替代法来证明：首先，初始时第一个位置所能达到的位置为0 + steps[0]，所以从[0, 0+steps[0]]的最小跳数为１；\\
+		在跳动的过程中，假设已求得达到某个位置i的最小跳数为minSteps[i]，则从ｉ向后跳所能到达的位置为[i+1, i+steps[i]]，如果这个范围内存在j，ｊ之前还没有到达，则到达j的最小跳数为minSteps[i] + 1。假设到达ｊ的跳数小于minSteps[i]＋１,则ｊ之前一定已经被到达过了，与假设矛盾。\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+int jump(int A[], int n) {
+    if(n == 0){
+        return 0;
+    }
+    int maxReachPos = A[0];
+    int curMaxReachPos = A[0];
+    int curStep = 1;
+    for(int i = 1; i <= min(n, maxReachPos); i++){
+        curMaxReachPos = max(curMaxReachPos, i + A[i]);
+        if(i == n - 1){
+            return curStep;
+        }
+        if(i == maxReachPos){
+            maxReachPos = curMaxReachPos;
+            curStep++;
+        }
+    }
+    return 0;
+}		\end{lstlisting}
+
+\end{description}
+

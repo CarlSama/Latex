@@ -1,0 +1,147 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Implement wildcard pattern matching with support for '?' and '*'.\\
+		'?' Matches any single character.\\
+		'*' Matches any sequence of characters (including the empty sequence).\\
+		The matching should cover the entire input string (not partial).\\
+
+    \item{\textbf{Example}}:\\
+		isMatch("aa","a") → false\\
+		isMatch("aa","aa") → true\\
+		isMatch("aaa","aa") → false\\
+		isMatch("aa", "*") → true\\
+		isMatch("aa", "a*") → true\\
+		isMatch("ab", "?*") → true\\
+		isMatch("aab", "c*a*b") → false\\
+
+    \item{\textbf{Anslysis}}\\
+		要注意的一点时，这道题需要提前的剪枝．预先判断s和p的实体长度来作比较．
+
+    \item{\textbf{Solution}}\\
+	\item{1. Greedy} : \fbox{时间复杂度O($n * m$) , 空间复杂度O(1)  TLE}\\
+		证明！
+		\begin{lstlisting}
+class Solution {
+	private:
+		int slen,plen;
+	public:
+		bool isSame(char c1,char c2){
+			return c2=='?'||c1==c2;
+		}
+		
+		bool isMatch(string s, string p){
+			slen = s.size();	plen = p.size();
+			
+			int pStrongLen = 0;
+			for(int i=0;i<plen;++i){
+				if(p[i] != '*')
+					++pStrongLen;
+			}
+			if(pStrongLen > slen) 
+				return false;//even * all became empty,still longer
+
+			int sidx=0,pidx=0;
+			int currSIdx=-1,currPIdx=-1;
+			while((sidx < slen && pidx < plen) || (currSIdx >= 0 && currSIdx < slen)){
+				if(sidx == slen && pidx == plen)	return true;
+				if(sidx == slen){
+					while(pidx < plen && p[pidx] == '*')
+						++pidx;
+					if(pidx == plen)	
+						return true;
+					else{
+						sidx = ++currSIdx;
+						pidx = currPIdx;
+						continue;
+					}
+				}
+				if(pidx == plen){
+					sidx = ++currSIdx;
+					pidx = currPIdx;
+					continue;
+				}
+
+				if(p[pidx] == '*'){
+					currSIdx = sidx;
+					currPIdx = ++pidx; 
+				}else{
+					if(isSame(s[sidx],p[pidx])){
+						++sidx;		++pidx;
+					}else if(currSIdx >= 0 && currSIdx < slen){
+						sidx = ++currSIdx;
+						pidx = currPIdx;
+					}else{
+						return false;
+					}
+				}
+			}
+
+			//currSIdx is used-up
+			if(sidx == slen && pidx == plen)	return true;
+			if(sidx == slen){
+				while(pidx < plen && p[pidx] == '*')
+					++pidx;
+				return pidx == plen;
+			}
+			if(pidx == plen)	return false;
+		}
+};
+		\end{lstlisting}
+	\item{2. DP} : \fbox{时间复杂度O($m * n$) , 空间复杂度O($m * n$)  TLE}\\
+		本题目子问题有明显的重叠性，独立性．适用于DP求解．\\
+		注意使用轮转数组来避免ＭLE．在使用轮转数组时，我需要注意的是在复用之前被抛弃的维度空间时，要全部清理这个维度，也就是对于这个维度的每个空间都填充上自己对应的值．第一次做这道题时，只处理了true的情况，未合理的填充false，到时复用了前一维度的true．
+
+		\begin{lstlisting}
+class Solution {
+	private:
+		int slen,plen;
+	public:
+		bool isSame(char c1,char c2){
+			return c2=='?'||c1==c2;
+		}
+
+		bool isMatch(string s, string p){
+			int m = s.size();
+			int n = p.size();
+
+			int numStar=0;
+			for(int i=0;i<n;++i)
+				if(p[i] == '*')
+					++numStar;
+			if(n - numStar > m)	return false;
+
+			vector<vector<bool> > dp(2,vector<bool>(n+1,false));
+
+			dp[0][0] = true;
+			for(int i=1;i<=n && dp[0][i-1];++i){
+				if(p[i-1] == '*')
+					dp[0][i] = true;
+			}
+
+			for(int i=1;i<=m;++i){
+				dp[i%2][0] = false;
+				for(int j=1;j<=n;++j){
+					if(p[j-1] != '*'){
+						if(isSame(s[i-1], p[j-1]) && dp[(i-1)%2][j-1])
+							dp[i%2][j] = true;
+						else
+							dp[i%2][j] = false;
+					}else{
+						if(dp[(i-1)%2][j] || dp[i%2][j-1])
+							dp[i%2][j] = true;
+						else
+							dp[i%2][j] = false;
+					}
+				}
+			}
+			return dp[m%2][n];
+		}
+};
+		\end{lstlisting}
+
+	\item{3. Backtracking} : \fbox{时间复杂度O($n^2$) , 空间复杂度O(n)}\\
+    \begin{lstlisting}
+    \end{lstlisting}
+	%\textit{只需一个维度即可解决问题}
+\end{description}
+

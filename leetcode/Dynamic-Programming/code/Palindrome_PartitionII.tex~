@@ -1,0 +1,62 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a string s, partition s such that every substring of the partition is a palindrome.\
+		Return the minimum cuts needed for a palindrome partitioning of s.\\
+
+    \item{\textbf{Example}}:\\
+		For example, given s = "aab",\\
+		Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 cut.\\
+
+    \item{\textbf{Anslysis}}\\
+		显然，这题可以使用回溯来求解．可是暴力的回溯会TLE.考虑到问题所具有的自问题重叠的性质，我们考虑使用ＤＰ来避免重复计算．\\
+		$dp[i] = \min(dp[j-1] + 1 ifisPalindom(s[j,i]))$\\
+		技巧点在于对于s[j,i]是否为回文的判断，如果对于每个s[j,i]都使用头尾指针的移动来判断的话，会有很多重复的移动过程．考虑到[j,i]可能处于某个更大范围的回文字符串上，我们使用$2 * mid = i + j$的性质来预先的指明所有回文字符串．
+
+    \item{\textbf{Solution}}\\
+	\item{1. DP} : \fbox{时间复杂度O($$) , 空间复杂度O($$)  TLE}\\
+		\begin{lstlisting}
+class Solution {
+		int len;
+	public:
+		bool isPalindromic(vector<int>& span,int left,int right){
+			return span[left + right] >= right - left + 1;
+		}
+		int getSpan(string &s,int left,int right){
+			while(left >=0 && right < len && s[left] == s[right]){
+				--left;	++right;
+			}
+			return right-left-1;
+		}
+		void initSpan(string &s,vector<int> &span){
+			for(int i=0;i<len;++i){
+				int left = i,right = i;//odd
+				span[left + right] = getSpan(s,left,right);
+				if((right = i + 1) < len)
+					span[left + right] = getSpan(s,left,right);
+			}
+		}
+		int minCut(string s) {
+			len = s.size();
+			if(len < 2)	return 0;
+
+			vector<int> span(len<<1,0);
+			initSpan(s, span);
+
+			vector<int> dp(len+1,-1);
+			for(int i=0;i<len;++i){
+				dp[i+1] = i;
+				for(int j = 0;j<=i;++j){
+					if(isPalindromic(span,j,i))
+						dp[i+1] = min(dp[i+1], dp[j] + 1);
+				}
+			}
+			return dp[len];
+		}
+};
+		\end{lstlisting}
+	\item{2. Backtracking} : \fbox{时间复杂度O($$) , 空间复杂度O()}\\
+		\begin{lstlisting}
+		\end{lstlisting}
+	%\textit{只需一个维度即可解决问题}
+\end{description}
+

@@ -1,0 +1,54 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.\\
+		You may assume that the array is non-empty and the majority element always exist in the array.\\
+
+    \item{\textbf{Anslysis}}\\
+		仍然使用[Boyer-Moore Majority Vote Algorithm多数投票算法]\\
+		只不过记录两个潜在对象。每次削减时要同时削减两个对象\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+    	int  len;
+    	public:
+    		vector<int> majorityElement(vector<int>& nums) {
+    			len = nums.size();
+    			int cand1,cand2;
+    			int num1=0,num2=0;
+    
+    			for(int i = 0;i < len; ++i) {
+    				if(nums[i] == cand1 || num1 == 0) {
+    					++num1;
+    					cand1 = nums[i];
+    				}else if(nums[i] == cand2 || num2 == 0) {
+    					++num2;
+    					cand2 = nums[i];
+    				}else {
+    					--num1;		
+    					--num2;
+    				}
+    			}
+    
+    			//需要检查cand1和cand2真实的数目 111223344
+    			num1 = num2 = 0;
+    			for(int i=0;i<len;++i) {
+    				if(nums[i] == cand1)
+    					++num1;
+    				else if(nums[i] == cand2)
+    					++num2;
+    			}
+    
+    			vector<int> result;
+    			if(num1 > len / 3) result.push_back(cand1);
+    			if(num2 > len / 3) result.push_back(cand2);
+    
+    			return result;
+    		}
+    };
+		\end{lstlisting}
+
+\end{description}
+

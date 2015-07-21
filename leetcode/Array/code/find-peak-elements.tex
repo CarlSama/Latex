@@ -1,0 +1,44 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		A peak element is an element that is greater than its neighbors.\\
+		Given an input array where num[i] ≠ num[i+1], find a peak element and return its index.\\
+		The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.\\
+		You may imagine that num[-1] = num[n] = -∞.\\
+
+    \item{\textbf{Example}}\\
+		In array [1, 2, 3, 1], 3 is a peak element and your function should return the index number 2.\\
+
+    \item{\textbf{Anslysis}}\\
+		如果使用Ｏ(n）的算法，则可以从左向右遍历求解\\
+		我们来考虑在找到某个点时出现的情况：１．left < curr　\&\& curr > right,则right为所求;\\
+		２．left < curr \&\& curr < right，则必定存在一个peak位于curr的右侧;\\
+		３．left > curr \&\& curr > right, 则必定存在一个peak位于curr的左侧;\\
+		４．left > curr \&\& right \&\& curr，则curr的左侧和右侧必定分别存在一个peak;\\
+		我们可以参照上面的分析，使用二分的方法来合理的移动left,right指针，从而定位到心仪的数据。这样就只需要Ｏ(lgn）的时间复杂度。\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(lgn) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    int findPeakElement(const vector<int> &num) 
+    {
+        int low = 0;
+        int high = num.size()-1;
+
+        while(low < high)
+        {
+            int mid1 = (low+high)/2;
+            int mid2 = mid1+1;
+            if(num[mid1] < num[mid2])
+                low = mid2;
+            else
+                high = mid1;
+        }
+        return low;
+    }
+};		\end{lstlisting}
+
+\end{description}
+

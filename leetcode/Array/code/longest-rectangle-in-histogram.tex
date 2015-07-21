@@ -1,0 +1,46 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.\\
+
+    \item{\textbf{Example}}\\
+		Given height = [2,1,5,6,2,3]\\
+		return 10\\
+
+    \item{\textbf{Anslysis}}\\
+		对于某一高度ｈ,如果我们在向后搜索的过程中没有找到比它更矮的挡板，则ｈ一直在生效。\\
+		因此我们需要存储高度ｈ,直到出现比它矮的挡板。\\
+		可以在最后的挡板后面插入高度为０的挡板来清空之前一直未被消耗的挡板。\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+  class Solution {
+    public:
+        int largestRectangleArea(vector<int> &height) {
+
+            int ret = 0;
+            height.push_back(0);
+            vector<int> index;
+
+            for(int i = 0; i < height.size(); i++)
+            {
+                while(index.size() > 0 && height[index.back()] >= height[i])
+                {
+                    int h = height[index.back()];
+                    index.pop_back();
+
+                    int sidx = index.size() > 0 ? index.back() : -1;
+                    if(h * (i-sidx-1) > ret)
+                        ret = h * (i-sidx-1);
+                }
+                index.push_back(i);
+            }
+
+            return ret;
+        }
+    };
+		\end{lstlisting}
+
+\end{description}
+

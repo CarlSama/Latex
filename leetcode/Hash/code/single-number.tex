@@ -1,0 +1,25 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of integers, every element appears twice except for one. Find that single one.\\
+		Note: Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?\\
+
+    \item{\textbf{Anslysis}}\\
+		偶次出现： 异或（Exclusive OR）。\\
+
+    \item{\textbf{Solution}}\\
+	\item{Hash} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+    public:
+        int singleNumber(vector<int>& nums) {
+            int res = nums[0];
+            for(int i=1;i<nums.size();++i) 
+                res ^= nums[i];
+            return res;
+        }
+};
+		\end{lstlisting}
+
+\end{description}
+

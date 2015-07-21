@@ -1,0 +1,60 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+矩阵连乘是动态规划中的经典题目．\\
+
+如果通过穷举的方法，它的递归关系为：\\
+
+$P(n)\begin{cases}
+	1 & \text{ if } n= 1 \\ 
+	\sum_{n-1}^{k=1}P(k)*P(n-k) & \text{ if } n\gg 2  
+\end{cases}$\\
+
+$P(n)\geq 1+\sum_{k=1}^{n-1}(P(k)+P(n-k)+1)) \rightarrow P(n)\geq n+2\ast \sum_{k=1}^{n-1}P(k)$\\
+
+通过替换法可以证明:$P(n)=\Omega (2^{n})$\\
+
+1).	最优子结构性质：如果对$A_{i}...A_{j}$的最优解分解为$A_{i}...A_{k}$和$A_{k}...A_{j}$.则$A_{i}...A_{k}$和$A_{k}...A_{j}$也必须为最优的．如果$A_{i}...A_{k}$或$A_{k}...A_{j}$中可以为非最优，那么使用最优解来替换掉它可以得到更优的$A_{i}...A_{j}$．矛盾．\\
+
+2).	构造最优解：将问题分割为两个子问题，然后根据子问题的最优解来合并．\\
+
+3).	递归定义：$m[i,j]\left\{\begin{matrix}
+		0 & i= j\\ 
+		\min_{k \in [i,j)} {m[i,k]+m[k+1,j]+p_{i-1}\ast p_{k}\ast p_{j}} & i< j
+	\end{matrix}\right.$\\
+
+4).	计算代价：原问题只有$\binom{2}{n}+n=\theta (n^{2})$个子问题．使用自底向上方法计算求解．\\
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

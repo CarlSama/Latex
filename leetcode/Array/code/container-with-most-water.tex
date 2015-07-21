@@ -1,0 +1,33 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.\\
+
+    \item{\textbf{Anslysis}}\\
+		需要证明每次移动较小的挡板能得到较大的结果．\\
+		假设有挡板a,b,height[a] < height[b],我们现在会移动a,假设最大的结果是移动b到b-1得来的[a,b-1]，可是这样的话b能和a构成更大的矩形，矛盾\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		int maxArea(vector<int>& height) {
+			len = height.size();
+			int left=0,right = len -1;
+			int result = 0;
+			while(left < right) {
+				result = max(result, (right - left) * min(height[left], height[right]));
+				if(height[left] < height[right]) {
+					++left;
+				}else{
+					--right;
+				}
+			}
+			return result;
+		}
+};		\end{lstlisting}
+
+\end{description}
+

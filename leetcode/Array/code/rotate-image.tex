@@ -1,0 +1,39 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		You are given an n x n 2D matrix representing an image.\\
+		Rotate the image by 90 degrees (clockwise).\\
+
+    \item{\textbf{Anslysis}}\\
+		类似题目．重点依然是确定四个顶点．\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($m*n$) , 空间复杂度O($m+n$) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		void rotate(vector<vector<int> >& matrix) {
+			len = matrix.size();
+
+			int tmp1,tmp2;
+			for(int col=0;col<=(len-1)/2;++col){
+				if(len-1-col >= col){
+					for(int i=col;i<len-1-col;++i){
+						tmp1 = matrix[i][len-1-col];
+						matrix[i][len-1-col] = matrix[col][i];
+
+						tmp2 = matrix[len-1-col][len-1-i];
+						matrix[len-1-col][len-1-i] = tmp1;
+
+						tmp1  = matrix[len-1-i][col];
+						matrix[len-1-i][col] = tmp2;
+
+						matrix[col][i] = tmp1;
+					}
+				}
+			}
+		}
+};
+		\end{lstlisting}
+\end{description}
+

@@ -1,0 +1,67 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing all ones and return its area.\\
+
+    \item{\textbf{Anslysis}}\\
+		对每层做递推处理后，可以使用largest-rectangle-in-histogram\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+struct Info {
+	int idx;
+	int height;
+	Info(int i,int h) : idx(i),height(h) {}
+};
+
+class Solution {
+	public:
+		int getMaxArea(vector<int>& steps) {
+			stack<Info> st;
+			st.push(Info(0,0));
+
+			int maxArea = 0;
+			steps.push_back(0);
+			for(int i=0;i<steps.size();++i) {
+				if(st.empty() || steps[i] >= st.top().height)
+					st.push(Info(i+1,steps[i]));
+				else {
+					while(!st.empty() && steps[i] < st.top().height) {
+						//the last 0 would clear all the front
+						Info tinfo = st.top();
+						st.pop();
+
+						maxArea = max(maxArea, (i-st.top().idx) * tinfo.height);
+					}
+					st.push(Info(i+1,steps[i]));
+				}
+			}
+			return maxArea;
+		}
+
+		int maximalRectangle(vector<vector<char> >& matrix) {
+			int cols = matrix.size();
+			if(cols == 0)	return 0;
+			int rows = matrix[0].size();
+			if(rows == 0)	return 0;
+
+			vector<int> steps(rows,0);
+
+			int maxArea = 0;
+			for(int i=0;i<cols;++i) {
+				for(int j=0;j<rows;++j) {
+					if(matrix[i][j] == '0')
+						steps[j] = 0;
+					else
+						steps[j] += 1;
+				}
+				maxArea = max(maxArea, getMaxArea(steps));
+			}
+			return maxArea;
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

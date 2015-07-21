@@ -1,0 +1,39 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue.\\
+		Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.\\
+
+    \item{\textbf{Anslysis}}\\
+		因为只有三种数据类型，所以不需要使用完整的排序方法．只需要两遍调整，将０和２放置到首尾的位置即可\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Two Pointer} : \fbox{时间复杂度O($n$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		void putZero(vector<int>& nums){
+			int prev = -1;
+			for(int i=0;i<len;++i){
+				if(nums[i] == 0)
+					swap(nums[i],nums[++prev]);
+			}
+		}
+		void putTwo(vector<int>& nums){
+			int back = len;
+			for(int i=len-1;i>=0;--i){
+				if(nums[i] == 2)
+					swap(nums[i], nums[--back]);
+			}
+		}
+
+		void sortColors(vector<int>& nums) {
+			len = nums.size();
+			putZero(nums);
+			putTwo(nums);
+		}
+};
+		\end{lstlisting}
+
+\end{description}
+

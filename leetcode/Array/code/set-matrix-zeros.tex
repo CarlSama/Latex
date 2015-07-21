@@ -1,0 +1,101 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in place.\\
+
+    \item{\textbf{Anslysis}}\\
+		可使用标记的方法，空间复杂度为O(m+n)\\
+		我们也可以考虑如何不使用多余的空间，这样的话如何在原数据中保存我们需要的信息呢？\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Tag} : \fbox{时间复杂度O($m*n$) , 空间复杂度O($m+n$) }\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		void setZeroes(vector<vector<int> >& matrix) {
+			int cols = matrix.size();
+			if(cols==0)	return ;
+			int rows = matrix[0].size();
+			if(rows==0)	return ;
+
+			vector<bool> colIsZero(cols,false);
+			vector<bool> rowIsZero(rows,false);
+			for(int i=0;i<cols;++i){
+				for(int j=0;j<rows;++j){
+					if(matrix[i][j]==0){
+						colIsZero[i] = true;
+						rowIsZero[j] = true;
+					}
+				}
+			}
+			for(int i=0;i<cols;++i){
+				if(colIsZero[i] == true){
+					for(int j=0;j<rows;++j){
+						matrix[i][j] = 0;
+					}
+				}
+			}
+			for(int i=0;i<rows;++i){
+				if(rowIsZero[i] == true){
+					for(int j=0;j<cols;++j){
+						matrix[j][i] = 0;
+					}
+				}
+			}
+		}
+};
+		\end{lstlisting}
+	\item{2. Use original matrix} : \fbox{时间复杂度O($m*n$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+		void setZeroes(vector<vector<int> >& matrix) {
+			int cols = matrix.size();
+			if(cols==0)	return ;
+			int rows = matrix[0].size();
+			if(rows==0)	return ;
+
+			bool isColZero=false;
+			for(int i=0;i<rows;++i){
+				if(matrix[0][i] == 0){
+					isColZero = true;	break;
+				}
+			}
+			bool isRowZero = false;
+			for(int i=0;i<cols;++i){
+				if(matrix[i][0] == 0){
+					isRowZero = true;	break;
+				}
+			}
+
+			for(int i=0;i<cols;++i){
+				for(int j=0;j<rows;++j){
+					if(matrix[i][j]==0){
+						matrix[i][0] = 0;
+						matrix[0][j] = 0;
+					}
+				}
+			}
+
+			for(int i=1;i<cols;++i){
+				if(matrix[i][0] == 0){
+					for(int j=1;j<rows;++j)
+						matrix[i][j] = 0;
+				}
+			}
+			for(int i=1;i<rows;++i){
+				if(matrix[0][i] == 0){
+					for(int j=1;j<cols;++j)
+						matrix[j][i] = 0;
+				}
+			}
+			if(isColZero){
+				for(int i=0;i<rows;++i)
+					matrix[0][i] = 0;
+			}
+			if(isRowZero){
+				for(int i=0;i<cols;++i)
+					matrix[i][0] = 0;
+			}
+		}
+		\end{lstlisting}
+
+\end{description}
+

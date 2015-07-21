@@ -1,0 +1,30 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+	Given an array of non-negative integers, you are initially positioned at the first index of the array.\\
+	Each element in the array represents your maximum jump length at that position.\\
+	Determine if you are able to reach the last index.\\
+
+    \item{\textbf{Anslysis}}\\
+		很多时候，对于可达性问题，我们不需要保存具体的跳转流程，只需要知道可达与否的状态\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O($n$) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		bool canJump(vector<int>& nums) {
+			len = nums.size();
+
+			int maxFront = 1;
+			for(int idx=0;idx<len;++idx)  {
+				if(maxFront < idx + 1)	return false;
+				maxFront = max(maxFront, idx+1+nums[idx]);
+			}
+			return true;
+		}
+};		\end{lstlisting}
+
+\end{description}
+

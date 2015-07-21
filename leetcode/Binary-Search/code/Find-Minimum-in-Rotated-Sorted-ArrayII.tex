@@ -1,0 +1,39 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Divide two integers without using multiplication, division and mod operator.\\
+		If it is overflow, return MAX\_INT.\\
+
+    \item{\textbf{Anslysis}}\\
+		需要注意在$mid=left=right$时，必须检测mid两侧，可能会退化为O($n$)的方法．\\
+		使用$low + (high - low)/2$来避免位运算的优先级问题\\
+
+    \item{\textbf{Solution}}\\
+	\item{Binary Search} : \fbox{时间复杂度O($lgn$) , 空间复杂度O($1$)}\\
+		\begin{lstlisting}
+class Solution {
+	public:
+		int findMin(vector<int>& nums) {
+			int len = nums.size();
+			//if(len == 0)	return ?;
+			int left = 0,right = len -1 ;
+			while(left < right){
+				if(nums[left] >= nums[right]){
+					int mid = left + (right - left) /2;
+					//avoid overflow
+					if(nums[mid] == nums[left] && nums[mid] == nums[right]){
+						++left ;	--right;
+					}else if(nums[mid] >= nums[left])
+						left = mid + 1;
+					else
+						right = mid;
+				}else{
+					break;
+				}
+			}
+			return nums[left];
+		}
+};
+		\end{lstlisting}
+\end{description}
+

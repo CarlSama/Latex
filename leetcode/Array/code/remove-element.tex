@@ -1,0 +1,28 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array and a value, remove all instances of that value in place and return the new length.\\
+		The order of elements can be changed. It doesn't matter what you leave beyond the new length.\\
+
+    \item{\textbf{Anslysis}}\\
+		数组上使用双指针来删除．\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Two Pointer} : \fbox{时间复杂度O($n$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		int removeElement(vector<int>& nums, int val) {
+			len = nums.size();
+			int prev = 0;
+			for(int i=0;i<len;++i){
+				if(val != nums[i]){
+					nums[prev++] = nums[i];
+				}
+			}
+			return prev;
+		}
+};
+		\end{lstlisting}
+\end{description}
+

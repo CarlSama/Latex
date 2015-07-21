@@ -1,0 +1,40 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.\\
+
+    \item{\textbf{Example}}:\\
+		For "(()", the longest valid parentheses substring is "()", which has length = 2.\\
+		Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.\\
+
+    \item{\textbf{Anslysis}}\\
+		求最优化的问题，可以考虑使用动态规划．本问题具有无后效性，重叠自问题的性质．\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. DP} : \fbox{时间复杂度O($n^2$) , 空间复杂度O(n)}\\
+    \begin{lstlisting}
+class Solution {
+	private:
+		int len;
+	public:
+		int longestValidParentheses(string s) {
+			len = s.size();
+			if(len ==0)	return 0;
+
+			vector<int> dp(len,0);
+			int maxLen = 0;
+			for(int i=1;i<len;++i){
+				if(s[i] == ')'){
+					if(i-1-dp[i-1] >= 0 && s[i-1-dp[i-1]]=='(')
+						dp[i] = dp[i-1] + 2;
+					if(i-dp[i] >= 0)
+						dp[i] += dp[i-dp[i]];
+				}
+				maxLen = max(maxLen, dp[i]); 
+			}
+			return maxLen;
+		}
+};    \end{lstlisting}
+	\textit{只需一个维度即可解决问题}
+\end{description}
+

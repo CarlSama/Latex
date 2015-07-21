@@ -1,0 +1,73 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+\subsection{Divide Two Integer}
+\input{Binary-Search/code/Divide-two-integer.tex}
+
+\subsection{Find Minimum In Rotated Sorted Array}
+\input{Binary-Search/code/Find-Minimum-in-Rotated-Sorted-Array.tex}
+
+\subsection{Find Minimum In Rotated Sorted ArrayII}
+\input{Binary-Search/code/Find-Minimum-in-Rotated-Sorted-ArrayII.tex}
+
+\subsection{Find Peak Element}
+\input{Binary-Search/code/Find-Peak-Element.tex}
+
+\subsection{Minimum Size Subarray Sum}
+\input{Binary-Search/code/Minimum-Size-Subarray-Sum.tex}
+
+\subsection{Pow}
+\input{Binary-Search/code/Pow.tex}
+
+\subsection{Range Search}
+\input{Binary-Search/code/Range-Search.tex}
+
+\subsection{Search 3D Matrix}
+\input{Binary-Search/code/Search-3D-Matrix.tex}
+
+\subsection{Search In Roated Sorted Array}
+\input{Binary-Search/code/Search-In-Rotated-Sorted-Array.tex}
+
+\subsection{Search In Roated Sorted ArrayII}
+\input{Binary-Search/code/Search-In-Rotated-Sorted-ArrayII.tex}
+
+\subsection{Search Insertion Position}
+\input{Binary-Search/code/Search-Insertion-Position.tex}
+
+\subsection{Sqrt}
+\input{Binary-Search/code/Sqrt.tex}
+
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

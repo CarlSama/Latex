@@ -1,0 +1,40 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given n, how many structurally unique BST's (binary search trees) that store values 1...n?\\
+
+    \item{\textbf{Anslysis}}\\
+		$p[m,n]=p[m-1,n]+p[m,n-1]$
+		分别以[1~n]为根节点，将问题化简为更小的维度．
+		$P(n)=\sum_{n-1}^{k=0}(P(k)\ast P(n-k-1))$
+		显然满足动态规划的需求.
+		
+
+    \item{\textbf{Solution}}\\
+	\item{1. DP} : \fbox{时间复杂度O($m * n$) , 空间复杂度O($m*n$)}\\
+		子问题重叠 + 无后效性：\\
+
+    \begin{lstlisting}
+class Solution {
+	public:
+		int resovle(vector<int>& dp,int num,int n){
+			if(dp[num])
+				return dp[num];
+
+			for(int i=1;i<=num;++i){//we use i as root seprately
+				dp[num] += resovle(dp ,i-1 ,n) * resovle(dp ,num-i, n); 
+			}
+
+			return dp[num];
+		}
+
+		int numTrees(int n) {
+			vector<int> dp(n+1,0);//memo
+			dp[0] = 1;	dp[1] = 1;
+
+			resovle(dp,n,n);
+			return dp[n];
+		}
+};
+    \end{lstlisting}
+\end{description}
+

@@ -1,0 +1,51 @@
+\documentclass{book}
+\usepackage{CJK}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{grey}{rgb}{0.55, 0.57, 0.67}
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+\lstset{language=C++, %用于设置语言为C++
+    numbers=left,
+    numberstyle=\ttfamily\scriptsize,
+    backgroundcolor=\color{darkgray}, frame=single,framesep=5pt,framexleftmargin=8mm,%frameround=fttt,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\ttfamily\bf\color{blue},
+    ndkeywordstyle=\ttfamily\bf\color{brown},
+    commentstyle=\color{darkgreen},
+    identifierstyle=\ttfamily\color{black}\bfseries,
+    stringstyle=\color{pink}\ttfamily,showstringspaces=false,
+    breaklines=true,
+    escapeinside=``
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\usepackage[colorlinks,linkcolor=black,anchorcolor=blue,citecolor=green,CJKbookmarks=true]{hyperref}
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+\title{我的解题报告}
+\author{胡庆海}
+\date{}
+
+\maketitle
+
+%\newpage
+\tableofcontents
+
+\chapter{第一章： 链表}
+\input{chap1/chap1.tex}
+
+\chapter{第二章： 树}
+\input{chap2/chap2.tex}
+
+\end{CJK}
+\end{document}

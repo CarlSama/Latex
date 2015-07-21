@@ -1,0 +1,93 @@
+\contentsline {chapter}{\numberline {1}Array}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Background}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Solutions}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}2sum}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}3sum-closest}{4}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}3sum}{6}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}4sum}{7}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Combination-sum}{8}{subsection.1.2.5}
+\contentsline {subsection}{\numberline {1.2.6}Combination-sumII}{9}{subsection.1.2.6}
+\contentsline {subsection}{\numberline {1.2.7}Combination-sumIII}{10}{subsection.1.2.7}
+\contentsline {subsection}{\numberline {1.2.8}Construct-binary-tree-from-preorder-and-inorder-traversal}{11}{subsection.1.2.8}
+\contentsline {subsection}{\numberline {1.2.9}Contain-duplicate}{12}{subsection.1.2.9}
+\contentsline {subsection}{\numberline {1.2.10}Contain-duplicateII}{13}{subsection.1.2.10}
+\contentsline {subsection}{\numberline {1.2.11}Container-with-most-water}{14}{subsection.1.2.11}
+\contentsline {subsection}{\numberline {1.2.12}Find-mininum-in-rotated-sorted-array}{14}{subsection.1.2.12}
+\contentsline {subsection}{\numberline {1.2.13}Find-mininum-in-rotated-sorted-arrayII}{15}{subsection.1.2.13}
+\contentsline {subsection}{\numberline {1.2.14}Find-peak-elements}{16}{subsection.1.2.14}
+\contentsline {subsection}{\numberline {1.2.15}First-missing-positive}{17}{subsection.1.2.15}
+\contentsline {subsection}{\numberline {1.2.16}Insert-interval}{17}{subsection.1.2.16}
+\contentsline {subsection}{\numberline {1.2.17}Jump-game}{18}{subsection.1.2.17}
+\contentsline {subsection}{\numberline {1.2.18}Jump-gameII}{19}{subsection.1.2.18}
+\contentsline {subsection}{\numberline {1.2.19}Longest-consecutive-sequence}{20}{subsection.1.2.19}
+\contentsline {subsection}{\numberline {1.2.20}Longest-rectangle-in-histogram}{21}{subsection.1.2.20}
+\contentsline {subsection}{\numberline {1.2.21}Majority-element}{22}{subsection.1.2.21}
+\contentsline {subsection}{\numberline {1.2.22}Majority-elementII}{23}{subsection.1.2.22}
+\contentsline {subsection}{\numberline {1.2.23}Maximal-rectangle}{24}{subsection.1.2.23}
+\contentsline {subsection}{\numberline {1.2.24}Median-of-sorted-array}{25}{subsection.1.2.24}
+\contentsline {subsection}{\numberline {1.2.25}Merge-intervals}{26}{subsection.1.2.25}
+\contentsline {subsection}{\numberline {1.2.26}Merge-sorted-array}{27}{subsection.1.2.26}
+\contentsline {subsection}{\numberline {1.2.27}Minimal-size-subarray-sum}{28}{subsection.1.2.27}
+\contentsline {subsection}{\numberline {1.2.28}Next-permutation}{29}{subsection.1.2.28}
+\contentsline {subsection}{\numberline {1.2.29}Pascal-triangle}{30}{subsection.1.2.29}
+\contentsline {subsection}{\numberline {1.2.30}Plus-one}{30}{subsection.1.2.30}
+\contentsline {subsection}{\numberline {1.2.31}Product-of-array-except-self}{31}{subsection.1.2.31}
+\contentsline {subsection}{\numberline {1.2.32}Remove-duplicates-from-sorted-array}{32}{subsection.1.2.32}
+\contentsline {subsection}{\numberline {1.2.33}Remove-element}{32}{subsection.1.2.33}
+\contentsline {subsection}{\numberline {1.2.34}Rotate-array}{33}{subsection.1.2.34}
+\contentsline {subsection}{\numberline {1.2.35}Rotate-image}{34}{subsection.1.2.35}
+\contentsline {subsection}{\numberline {1.2.36}Search-2D-matrix}{35}{subsection.1.2.36}
+\contentsline {subsection}{\numberline {1.2.37}Search-insert-position}{36}{subsection.1.2.37}
+\contentsline {subsection}{\numberline {1.2.38}Set-matrix-zeros}{37}{subsection.1.2.38}
+\contentsline {subsection}{\numberline {1.2.39}Sort-color}{39}{subsection.1.2.39}
+\contentsline {subsection}{\numberline {1.2.40}Spiral-matrix}{39}{subsection.1.2.40}
+\contentsline {subsection}{\numberline {1.2.41}Spiral-matrixII}{40}{subsection.1.2.41}
+\contentsline {subsection}{\numberline {1.2.42}summary-ranges}{41}{subsection.1.2.42}
+\contentsline {subsection}{\numberline {1.2.43}Search-for-a-range}{43}{subsection.1.2.43}
+\contentsline {subsection}{\numberline {1.2.44}Search-in-rotated-sorted-array}{44}{subsection.1.2.44}
+\contentsline {subsection}{\numberline {1.2.45}Search-in-rotated-sorted-arrayII}{45}{subsection.1.2.45}
+\contentsline {subsection}{\numberline {1.2.46}trapping-rain-water.tex}{46}{subsection.1.2.46}
+\contentsline {chapter}{\numberline {2}Hash}{49}{chapter.2}
+\contentsline {section}{\numberline {2.1}Background}{49}{section.2.1}
+\contentsline {section}{\numberline {2.2}Solutions}{50}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}anagrams}{50}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}count-primes}{50}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}fraction-to-recurring-decimal}{51}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}happy-number}{52}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}substring-with-concatenation-of-all-words}{53}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}single-number.tex}{54}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}valid-sudoku}{54}{subsection.2.2.7}
+\contentsline {subsection}{\numberline {2.2.8}maximal-rectangle}{55}{subsection.2.2.8}
+\contentsline {subsection}{\numberline {2.2.9}max-points-on-a-line}{56}{subsection.2.2.9}
+\contentsline {subsection}{\numberline {2.2.10}minimal-window-substring}{58}{subsection.2.2.10}
+\contentsline {subsection}{\numberline {2.2.11}repeated-DNA-sequences}{59}{subsection.2.2.11}
+\contentsline {subsection}{\numberline {2.2.12}isomorphics-string}{60}{subsection.2.2.12}
+\contentsline {subsection}{\numberline {2.2.13}longest-substring-without-repeating-characters}{60}{subsection.2.2.13}
+\contentsline {chapter}{\numberline {3}Dynamic Programming}{62}{chapter.3}
+\contentsline {section}{\numberline {3.1}Background}{62}{section.3.1}
+\contentsline {section}{\numberline {3.2}Classical Problem}{63}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Strassen's Algorithm}{63}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Longest Common Substring}{63}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Optimal Binary Search Tree}{64}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Solutions}{65}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Word Break}{65}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Word BreakII}{66}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Wildcard Matching}{68}{subsection.3.3.3}
+\contentsline {chapter}{\numberline {4}Binary Search}{72}{chapter.4}
+\contentsline {section}{\numberline {4.1}Background}{72}{section.4.1}
+\contentsline {section}{\numberline {4.2}Classical Problem}{73}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}STL Lower Bound}{73}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}STL Upper Bound}{74}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Solutions}{76}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Divide Two Integer}{76}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Find Minimum In Rotated Sorted Array}{77}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Find Minimum In Rotated Sorted ArrayII}{78}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Find Peak Element}{79}{subsection.4.3.4}
+\contentsline {subsection}{\numberline {4.3.5}Minimum Size Subarray Sum}{80}{subsection.4.3.5}
+\contentsline {subsection}{\numberline {4.3.6}Pow}{82}{subsection.4.3.6}
+\contentsline {subsection}{\numberline {4.3.7}Range Search}{83}{subsection.4.3.7}
+\contentsline {subsection}{\numberline {4.3.8}Search 3D Matrix}{84}{subsection.4.3.8}
+\contentsline {subsection}{\numberline {4.3.9}Search In Roated Sorted Array}{85}{subsection.4.3.9}
+\contentsline {subsection}{\numberline {4.3.10}Search In Roated Sorted ArrayII}{86}{subsection.4.3.10}
+\contentsline {subsection}{\numberline {4.3.11}Search Insertion Position}{87}{subsection.4.3.11}
+\contentsline {subsection}{\numberline {4.3.12}Sqrt}{88}{subsection.4.3.12}

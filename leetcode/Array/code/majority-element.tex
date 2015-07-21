@@ -1,0 +1,35 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.\\
+		You may assume that the array is non-empty and the majority element always exist in the array.\\
+
+    \item{\textbf{Anslysis}}\\
+		1.可以排序后解决\\
+		2.hash存储每个元素出现的次数\\
+		3.partition得到n/2元素\\
+		4.使用单个空间记录当前出现次数最多的元素[Boyer-Moore Majority Vote Algorithm多数投票算法]\\
+
+    \item{\textbf{Solution}}\\
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+public class Solution {
+    public int majorityElement(int[] num) {
+
+        int major=num[0], count = 1;
+        for(int i=1; i<num.length;i++){
+            if(count==0){
+                count++;
+                major=num[i];
+            }else if(major==num[i]){
+                count++;
+            }else count--;
+
+        }
+        return major;
+    }
+}
+		\end{lstlisting}
+
+\end{description}
+

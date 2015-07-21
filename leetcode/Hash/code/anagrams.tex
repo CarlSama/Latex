@@ -1,0 +1,41 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given an array of strings, return all groups of strings that are anagrams.\\
+		Note: All inputs will be in lower-case.\\
+
+    \item{\textbf{Solution}}\\
+		anagram为异位词的意思。既然时查看含有相同数目字符类型的串的存在性，自然可以使用ｈａｓｈ来加速。\\
+		如果使用sort后查找的方法，时间复杂度为O(n*n*lgn).\\
+		如果将子串转换为数字后处理，时间复杂度为O(m*n).可以为ａ~ｚ选取不同的质数，然后使用乘法来计算每个串的值\\
+
+	\item{Hash} : \fbox{时间复杂度O($m*n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+    private static final int[] PRIMES = new int[]{2, 3, 5, 7, 11 ,13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 107};
+
+    public List<String> anagrams(String[] strs) {
+        List<String> list = new LinkedList<>();
+        Map<Integer, List<String>> mapString = new HashMap<>();
+        int result = -1;
+        for (int i = 0; i < strs.length; i++){
+            int mapping = 1;
+            for (int j = 0, max = strs[i].length(); j < max; j++) {
+                mapping *= PRIMES[strs[i].charAt(j) - 'a'];
+            }
+            List<String> strings = mapString.get(mapping);
+            if (strings == null) {
+                strings = new LinkedList<>();
+                mapString.put(mapping, strings);
+            }
+            strings.add(strs[i]);
+        }
+        for (List<String> mapList : mapString.values()){
+            if (mapList.size() > 1)
+                list.addAll(mapList);
+        }
+        return list;
+    }
+		\end{lstlisting}
+
+\end{description}
+

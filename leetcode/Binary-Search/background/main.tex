@@ -1,0 +1,45 @@
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
+\usepackage{CJK}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+
+%%%代码
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{keywordcolor}{rgb}{0.8,0.1,0.5}
+\usepackage{listings}
+\lstset{breaklines}%这条命令可以让LaTeX自动将长的代码行换行排版
+\lstset{extendedchars=false}%这一条命令可以解决代码跨页时，章节标题，页眉等汉字不显示的问题
+\lstset{language=C++, %用于设置语言为C++
+    keywordstyle=\color{keywordcolor} \bfseries, %设置关键词
+    identifierstyle=,
+    basicstyle=\ttfamily, 
+    commentstyle=\color{blue} \textit,
+    stringstyle=\ttfamily, 
+    showstringspaces=false,
+    %frame=shadowbox, %边框
+    captionpos=b
+}
+%%%
+
+%\hypersetup{CJKbookmarks=true} %解决section不能使用中文的问题
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}     %CJK:支持中文
+
+\else
+
+	\indent二分查找又称为折半查找，它要求待查找的数组按照某键值有序的存放．每次都选取数组的中间位置的key与带寻找的key值作比较，以此来排除掉一半的范围．\\
+\\
+	\indent从二分查找延伸而来的算法有，查找在不破坏有序状态下可插入key的第一个位置(lowerbound),和查找在不破坏有序状态下可插入key的最后一个位置(upperbound).\\
+\\
+	\indent在ＳＴＬ中包含了二分查找相关的泛型算法，binary\_search, lower\_bound, upper\_bound.\\
+
+
+\fi
+
+\ifx allfiles undefined
+\end{CJK}
+\end{document}
+\fi

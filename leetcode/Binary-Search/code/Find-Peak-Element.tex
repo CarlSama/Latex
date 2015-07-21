@@ -1,0 +1,55 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		A peak element is an element that is greater than its neighbors.\\
+		Given an input array where $num[i] \neq num[i+1]$, find a peak element and return its index.\\
+		The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.\\
+		You may imagine that $num[-1] = num[n] = -∞$.
+    \item{\textbf{Example}}\\
+		In array [1, 2, 3, 1], 3 is a peak element and your function should return the index number 2.
+    \item{\textbf{Anslysis}}\\
+		可以使用顺序查找的方法，也可以使用二分的方法．\\
+		当使用二分的方法时，需要判断$mid$与$mid + 1$的关系.\\
+
+    \item{\textbf{Solution}}\\
+	\item{Binary Search} : \fbox{时间复杂度O($lgn$) , 空间复杂度O($1$)}\\
+		\begin{lstlisting}
+class Solution {
+public:
+    int findPeakElement(const vector<int> &num) 
+    {
+        int low = 0;
+        int high = num.size()-1;
+
+        while(low < high)
+        {
+            int mid1 = (low+high)/2;
+            int mid2 = mid1+1;
+            if(num[mid1] < num[mid2])
+                low = mid2;
+            else
+                high = mid1;
+        }
+        return low;
+    }
+};
+		\end{lstlisting}
+
+	\item{Sequential Search} : \fbox{时间复杂度O($n$)? , 空间复杂度O($1$)}\\
+		在使用顺序查找的方法时，不需要比较$a[i] a[i-1] a[i+1]$的关系，只需检测当前的值是否大于前一位置的值，如果大于，则继续寻找，表明现在处于升序阶段；如果小于，则可以确定这里是降序阶段的起始位置．\\
+		\begin{lstlisting}
+class Solution {
+public:
+    int findPeakElement(const vector<int> &num) {
+        for(int i = 1; i < num.size(); i ++){
+            if(num[i] < num[i-1]){
+                return i-1;
+            }
+        }
+        return num.size()-1;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

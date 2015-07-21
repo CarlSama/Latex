@@ -1,0 +1,33 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Duplicate are allowed twice.
+
+    \item{\textbf{Anslysis}}\\
+		双指针,多处理到i==1的情况\\
+
+    \item{\textbf{Solution}}\\
+	\item{1. Two pointer} : \fbox{时间复杂度O($n$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		int removeDuplicates(vector<int>& nums) {
+			len = nums.size();
+			int prev = -1;
+			int newLen = 0;
+			for(int i=0;i<len;++i){
+				if(i <= 1){
+					++newLen;
+					++prev;
+				}else if(nums[i] != nums[prev] || nums[i] != nums[prev-1]){ // 0 ~ 2 times
+					nums[++prev] = nums[i];
+					++newLen;
+				}else{//more than 2
+				}
+			}
+			return newLen;
+		}
+};
+		\end{lstlisting}
+\end{description}
+

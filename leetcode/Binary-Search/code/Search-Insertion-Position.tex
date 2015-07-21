@@ -1,0 +1,33 @@
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\\
+		You may assume no duplicates in the array.\\
+
+    \item{\textbf{Anslysis}}\\
+		待处理数组为已排序状态，可以使用二分查找的方法．\\
+
+    \item{\textbf{Solution}}\\
+	\item{Binary Search} : \fbox{时间复杂度O($lgn$) , 空间复杂度O($1$)}\\
+		\begin{lstlisting}
+class Solution {
+	int len;
+	public:
+		int searchInsert(vector<int>& nums, int target) {
+			len = nums.size();
+			int left=0,right=len-1;
+			while(left <= right){
+				int mid = left + (right - left) /2;
+				if(nums[mid] == target)	return mid;
+				if(nums[mid] > target){
+					right = mid - 1;
+				}else{
+					left = mid + 1;
+				}
+			}
+			//not found, now left 
+			return left;
+		}
+};
+		\end{lstlisting}
+\end{description}
+
