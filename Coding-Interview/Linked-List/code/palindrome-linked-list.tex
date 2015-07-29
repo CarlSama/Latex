@@ -1,0 +1,50 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a singly linked list, determine if it is a palindrome.
+
+    \item{\textbf{Anslysis}}\\
+		要判断一个链表是否为回文，需要判断其前半部分的反转和后半部分是否相同。\\
+		所以本题其实时考察链表的部分反转，可以反转后一部分来减少指针操作。\\
+		此外，在确定链表的中点时，可以借助于快慢指针。
+
+    \item{\textbf{Solution}}
+	\item{Two pointer} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL||head->next==NULL)
+            return true;
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast->next!=NULL&&fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        slow->next=reverseList(slow->next);
+        slow=slow->next;
+        while(slow!=NULL){
+            if(head->val!=slow->val)
+                return false;
+            head=head->next;
+            slow=slow->next;
+        }
+        return true;
+    }
+    ListNode* reverseList(ListNode* head) {
+        ListNode* pre=NULL;
+        ListNode* next=NULL;
+        while(head!=NULL){
+            next=head->next;
+            head->next=pre;
+            pre=head;
+            head=next;
+        }
+        return pre;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

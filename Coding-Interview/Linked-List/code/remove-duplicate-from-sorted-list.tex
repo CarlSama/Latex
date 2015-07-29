@@ -1,0 +1,37 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a sorted linked list, delete all duplicates such that each element appear only once.
+
+    \item{\textbf{Example}}\\
+		Given 1->1->2, return 1->2.\\
+		Given 1->1->2->3->3, return 1->2->3.
+
+    \item{\textbf{Solution}}
+		可以使用额外的指针寻找与当前节点值不同的节点。\\
+		记的释放空间。
+
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+		ListNode* unique = head, *checkDuplicate;
+		while(unique) {
+			checkDuplicate = unique->next;
+			
+			//ignore all duplicate elements
+			while(checkDuplicate && checkDuplicate->val == unique->val) {
+				ListNode* toBeDeleted = checkDuplicate;
+				checkDuplicate = checkDuplicate->next;
+				delete toBeDeleted;
+			}
+
+			unique->next = checkDuplicate;
+			unique = unique->next;
+		}
+		return head;
+    }
+};
+		\end{lstlisting}
+\end{description}

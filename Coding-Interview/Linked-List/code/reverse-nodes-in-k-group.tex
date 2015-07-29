@@ -1,0 +1,87 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.\\
+		If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.\\
+		You may not alter the values in the nodes, only nodes itself may be changed.\\
+		Only constant memory is allowed.
+
+    \item{\textbf{Exmaple}}\\
+		Given this linked list: 1->2->3->4->5\\
+		For k = 2, you should return: 2->1->4->3->5\\
+		For k = 3, you should return: 3->2->1->4->5
+
+    \item{\textbf{Anslysis}}\\
+		类似于reverse-nodes-in-pairs。\\
+		依然有递归和迭代两种方法。\\
+		递归：为了简便期间，我们每次递归完全处理K个元素。\\
+
+
+    \item{\textbf{Solution}}
+	\item{递归} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+public ListNode reverseKGroup(ListNode head, int k) {
+    ListNode curr = head;
+    int count = 0;
+    while (curr != null && count != k) { // find the k+1 node
+        curr = curr.next;
+        count++;
+    }
+    if (count == k) { // if k+1 node is found
+        curr = reverseKGroup(curr, k); // reverse list with k+1 node as head
+        // head - head-pointer to direct part, 
+        // curr - head-pointer to reversed part;
+        while (count-- > 0) { // reverse current k-group: 
+            ListNode tmp = head.next; // tmp - next head in direct part
+            head.next = curr; // preappending "direct" head to the reversed list 
+            curr = head; // move head of reversed part to a new node
+            head = tmp; // move "direct" head to the next node in direct part
+        }
+        head = curr;
+    }
+    return head;
+}
+		\end{lstlisting}
+	\item{迭代} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+		ListNode* newHead = new ListNode(0);
+		newHead->next = head;
+
+		int count=0;
+		ListNode* beforeFront = newHead;
+		ListNode* front,* tail;
+
+		while(tail) {
+			count = 0;
+			front = beforeFront->next;
+			tail = beforeFront;
+
+			while(tail && count < k) {
+				tail = tail->next;
+				++count;
+			}
+
+			if(count == k && tail) { 
+				// 存在Ｋ个元素可以反转,需要反转[front,tail]内的元素
+				while(--count > 0) {
+					ListNode* curr = front->next;
+					front->next = curr->next;
+					curr->next = beforeFront->next;
+					beforeFront->next = curr;
+				}
+				beforeFront = front;
+			}else{
+				break;
+			}
+		}
+
+		return newHead->next;
+    }
+};
+
+		\end{lstlisting}
+\end{description}
+

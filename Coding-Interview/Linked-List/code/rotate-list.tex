@@ -1,0 +1,57 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Given a list, rotate the list to the right by k places, where k is non-negative.
+
+    \item{\textbf{Exmaple}}\\
+		Given 1->2->3->4->5->NULL and k = 2,\\
+		return 4->5->1->2->3->NULL.
+
+    \item{\textbf{Anslysis}}\\
+		使用快慢指针来定位末尾k个元素的起点。\\
+		这里要记得对将k对链表的长度取余，得到的结果为需要处理的长度。\\
+
+    \item{\textbf{Solution}}
+	\item{Two pointer} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+		if(head==0)	return head;
+
+		ListNode* fast=head, *slow = head;
+		int len = 1, k_back = k;
+
+		while(k && fast->next) {//让快指针先前进k步
+			--k;
+			++len;
+			fast = fast->next;
+		}
+
+		if(k > 0) { // 此时Ｋ大于链表的长度 
+			k = k_back;
+			k = k % len;
+			fast = head;
+			while(k-- && fast->next) {//让快指针先前进k步
+				++len;
+				fast = fast->next;
+			}
+		}
+
+		while(fast->next) {
+			slow = slow->next;
+			fast = fast->next;
+		}
+
+		fast->next = head;
+		ListNode* newHead = slow->next;
+		slow->next = 0;
+
+		return newHead;
+    }
+};
+		\end{lstlisting}
+
+\end{description}
+

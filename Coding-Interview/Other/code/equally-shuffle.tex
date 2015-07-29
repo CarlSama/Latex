@@ -1,0 +1,26 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write a method to shuffle a deck of cards. It must be a perfect shuffle - in other words, each 52! permutations of the deck has to be equally likely. Assume that you are given a random number generator which is perfect.	
+
+    \item{\textbf{Anslysis}}\\
+		首先的想法是逐一的确定每个元素的新位置。当某个元素定位到i后，其他元素再次随机定位到i时，需要重新定位。这里出现了错误：当某个元素定位到i后，不应该对位置i产生排他性独占，当其他元素由定位到i时，应该将新的元素放置到i。如果按照排他性的定位，则可能产生多次冲突，此时重新定位时不能保证为等概率情况。\\
+		理想的做法是保证每个元素只会被定位一次。为了达到这个目的，我们需要在元素被定位后就不会再处理它。使用标记数组的方法只能保证能够发现重复处理，不能从源头避免。\\
+		可以将带排序的数组看做连续的区间，每次都为区间的头部选择一个元素。然后缩小区间的宽度，直接避免对已定位元素的处理。
+		
+    \item{\textbf{Solution}}
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		public static void shuffleArray(int[] cards) {
+			int temp, index;
+			for (int i = 0; i < cards.length; i++){
+				index = (int) (Math.random() * (cards.length - i)) + i;
+				temp = cards[i];
+				cards[i] = cards[index];
+				cards[index] = temp;
+			}
+		}
+		\end{lstlisting}
+
+\end{description}
+

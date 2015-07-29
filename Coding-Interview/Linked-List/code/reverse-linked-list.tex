@@ -1,0 +1,53 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Reverse a singly linked list.
+
+    \item{\textbf{Anslysis}}\\
+		迭代的方法：需要使用两个指针，分别表征当前的结尾和将要处理到的位置。\\
+		递归的方法：既可以维护额外的指针来表征新旧head；也可以考虑处理的流程来避免额外的处理新旧头，也就是每次更新当前节点和它的新后节点。\\
+
+    \item{\textbf{Solution}}
+	\item{递归} : \fbox{时间复杂度O(n) , 空间复杂度O(n) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+	ListNode* reverse(ListNode* head, ListNode* newNext) {
+		if(head == 0)	return 0;
+		ListNode* next = head->next;
+		head->next = newNext;
+		return reverse(next,head);
+	}
+
+    ListNode* reverseList(ListNode* head) {
+		return reverse(head,0);
+    }
+};		\end{lstlisting}
+	\item{迭代} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+			if(head == 0 || head->next == 0)	return head;
+
+			ListNode* newHead = new ListNode(0);
+			newHead->next = head;
+			ListNode* front = head;
+			ListNode* back = head->next;
+			ListNode* tail = head;
+
+			while(back) {
+					newHead->next = back;
+					tail->next = back->next;
+					back->next = front;
+
+					back = tail->next;
+					front = newHead->next;
+			}
+
+			return newHead->next;
+    }
+};		\end{lstlisting}
+
+\end{description}
+

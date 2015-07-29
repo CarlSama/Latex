@@ -1,0 +1,28 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.\\
+
+    \item{\textbf{Exmaple}}\\
+		Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, the linked list should become 1 -> 2 -> 4 after calling your function.\\
+
+    \item{\textbf{Anslysis}}\\
+		拷贝后删除next。但是在当前为末尾节点时失效。\\
+
+    \item{\textbf{Solution}}
+	\item{Two pointer} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+		node->val = node->next->val;
+
+		ListNode* newNext = node->next->next;
+		delete node->next;
+
+		node->next = newNext;
+    }
+};		\end{lstlisting}
+
+\end{description}
+

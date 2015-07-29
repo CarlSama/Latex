@@ -1,0 +1,32 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write a method to randomly generate a set of m integers from an array of size n. Each element must have equal probability of being chosen.
+
+    \item{\textbf{Anslysis}}\\
+		同样是如何在选择一个元素后，不会再处理第二次的问题。依然使用区间的方法。\\
+		为了不修改原串，需要克隆后处理。
+		
+    \item{\textbf{Solution}}
+	\item{} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		/* Random number between lower and higher, inclusive */
+		public static int rand(int lower, int higher) {
+			return lower + (int)(Math.random() * (higher - lower + 1));
+		}
+
+		/* Clone original array so that we don’t destroy the input. */
+		public static int[] pickMRandomly(int[] original, int m) {
+			int[] subset = new int[m];
+			int[] array = original.clone();
+			for (int j = 0; j < m; j++) {
+				int index = rand(j, array.length - 1);
+				subset[j] = array[index];
+				array[index] = array[j]; // array[j] is now “dead”
+			}
+			return subset;
+		}
+		\end{lstlisting}
+
+\end{description}
+
