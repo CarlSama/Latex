@@ -1,0 +1,11 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		How would you design a stack which, in addition to push and pop, also has a function min which returns the minimum element? Push, pop and min should all operate in O(1) time.
+
+    \item{\textbf{Anslysis}}\\
+		1. 在每个节点中维护额外的min信息，这需要额外的$O(N)$空间。\\
+		2. 使用额外的栈来维护min信息。当min元素较少时，可以节省较多空间。
+
+\end{description}
+

@@ -1,0 +1,27 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (i.e., “waterbottle” is a rotation of “erbottlewat”)
+
+    \item{\textbf{Anslysis}}\\
+		对于旋转问题，记得旋转后的串为str + str的子串。\\
+		这个问题就可以借助于判断s2是否为s1+s1的子串来求解。
+
+    \item{\textbf{Solution}}
+	\item{} : \fbox{时间复杂度O(1) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		public static boolean isRotation(String s1, String s2) {
+			int len = s1.length();
+			/* check that s1 and s2 are equal length and not empty */
+			if (len == s2.length() && len > 0) {
+			/* concatenate s1 and s1 within new buffer */
+			String s1s1 = s1 + s1;
+			return isSubstring(s1s1, s2);
+		}
+		return false;
+	}
+
+		\end{lstlisting}
+
+\end{description}
+

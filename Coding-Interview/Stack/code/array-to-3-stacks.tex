@@ -1,0 +1,38 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Describe how you could use a single array to implement three stacks.
+
+    \item{\textbf{Anslysis}}\\
+		1. 均分数组空间给三个堆栈使用(可使用的空间无法再增长)。\\
+		2. 平等的使用数组空间，每个新加入元素都包含指向前一元素的指针(当删除某个元素后，这个空间可能无法及时被其他堆栈使用)。可以维护一个free-list来存储所有可用的空间，当元素被删除后，可将它所占用的空间放入到free-list中。
+
+    \item{\textbf{Solution}}\\
+	\item{Equally Divided} : \fbox{时间复杂度O($n$) , 空间复杂度O($n$) }\\
+		\begin{lstlisting}
+		int stackSize = 300;
+		int[] buffer = new int [stackSize * 3];
+		int[] stackPointer = {0, 0, 0}; // stack pointers to track top elem
+		void push(int stackNum, int value) {
+			/* Find the index of the top element in the array + 1, and increment the stack pointer */
+			int index = stackNum * stackSize + stackPointer[stackNum] + 1;
+			stackPointer[stackNum]++;
+			buffer[index] = value;	
+		}
+		int pop(int stackNum) {
+			int index = stackNum * stackSize + stackPointer[stackNum];
+			stackPointer[stackNum]--;
+			int value = buffer[index];
+			buffer[index]=0;
+			return value;
+		}
+		int peek(int stackNum) {
+			int index = stackNum * stackSize + stackPointer[stackNum];
+			return buffer[index];
+		}
+		boolean isEmpty(int stackNum) {
+			return stackPointer[stackNum] == stackNum*stackSize;
+		}
+		\end{lstlisting}
+\end{description}
+

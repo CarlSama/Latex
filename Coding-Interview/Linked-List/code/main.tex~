@@ -29,46 +29,44 @@
 
 \else
 
-\subsection{add-two-numbers}
+\subsection{add-two-numbers.tex}
 \input{Linked-List/code/add-two-numbers.tex}
 
-\subsection{delete-node-in-a-linked-list}
+\subsection{delete-node-in-a-linked-list.tex}
 \input{Linked-List/code/delete-node-in-a-linked-list.tex}
 
-\subsection{merge-k-sorted-lists}
+\subsection{merge-k-sorted-lists.tex}
 \input{Linked-List/code/merge-k-sorted-lists.tex}
 
-\subsection{merge-two-sorted-lists.
+\subsection{merge-two-sorted-lists.tex}
 \input{Linked-List/code/merge-two-sorted-lists.tex}
 
-\subsection{palindrome-linked-list} 
+\subsection{palindrome-linked-list.tex} 
 \input{Linked-List/code/palindrome-linked-list.tex}
 
-\subsection{partition-list}
+\subsection{partition-list.tex}
 \input{Linked-List/code/partition-list.tex}
 
-\subsection{remove-duplicate-from-sorted-list} 
+\subsection{remove-duplicate-from-sorted-list.tex} 
 \input{Linked-List/code/remove-duplicate-from-sorted-list.tex}
 
-\subsection{remove-linked-list-elements} 
+\subsection{remove-linked-list-elements.tex} 
 \input{Linked-List/code/remove-linked-list-elements.tex}
 
-\subsection{remove-nth-nodes-from-end-of-list} 
+\subsection{remove-nth-nodes-from-end-of-list.tex} 
 \input{Linked-List/code/remove-nth-nodes-from-end-of-list.tex}
 
-\subsection{reverse-linked-list} 
+\subsection{reverse-linked-list.tex} 
 \input{Linked-List/code/reverse-linked-list.tex}
 
-\subsection{reverse-nodes-in-k-group} 
+\subsection{reverse-nodes-in-k-group.tex} 
 \input{Linked-List/code/reverse-nodes-in-k-group.tex}
 
-\subsection{rotate-list} 
+\subsection{rotate-list.tex} 
 \input{Linked-List/code/rotate-list.tex}
-
-\subsection{sort-list} 
+\subsection{sort-list.tex} 
 \input{Linked-List/code/sort-list.tex}
-
-\subsection{swap-nodes-in-pairs} 
+\subsection{swap-nodes-in-pairs.tex} 
 \input{Linked-List/code/swap-nodes-in-pairs.tex}
 
 

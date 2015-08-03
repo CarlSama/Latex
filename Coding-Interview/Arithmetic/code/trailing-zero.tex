@@ -1,0 +1,29 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write an algorithm which computes the number of trailing zeros in n factorial.
+
+    \item{\textbf{Anslysis}}\\
+		5和2的乘积能贡献出0。因为2的个数比5的多，所以求末尾0个个数，也就是求5的个数。\\
+		因为5，10，15。。都贡献出1个5；\\
+		25，50，75。。都贡献处2个5；\\
+		所以依据x与5的n次方的关系来计算。
+
+    \item{\textbf{Solution}}
+	\item{} : \fbox{时间复杂度O(1) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		public static int numZeros(int num) {
+			int count = 0;
+			if (num < 0) {//边界判断
+				System.out.println(“Factorial is not defined for < 0”);
+				return 0;
+			}
+			for (int i = 5; num / i > 0; i *= 5) {
+				count += num / i;
+			}
+			return count;
+		}
+		\end{lstlisting}
+
+\end{description}
+

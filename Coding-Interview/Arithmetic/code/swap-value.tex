@@ -1,0 +1,32 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write a function to swap a number in place without temporary variables.
+
+    \item{\textbf{Anslysis}}\\
+		在使用加法的时候可能产生溢出。
+
+    \item{\textbf{Solution}}
+	\item{+} : \fbox{时间复杂度O(1) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		public static void swap(int a, int b) {
+			a = b - a; // 9 - 5 = 4
+			b = b - a; // 9 - 4 = 5
+			a = a + b; // 4 + 5 = 9
+			System.out.println(“a: “ + a);
+			System.out.println(“b: “ + b);
+		}
+		\end{lstlisting}
+	\item{xor} : \fbox{时间复杂度O(1) , 空间复杂度O(1) }\\
+		\begin{lstlisting}
+		public static void swap_opt(int a, int b) {
+			a = a^b;
+			b = a^b;
+			a = a^b;
+			System.out.println(“a: “ + a);
+			System.out.println(“b: “ + b);
+		}
+		\end{lstlisting}
+
+\end{description}
+

@@ -44,22 +44,6 @@ class Solution {
 		\end{lstlisting}
 	\item{1. Two pointer} : \fbox{时间复杂度O(n) , 空间复杂度O(1) }\\
 		\begin{lstlisting}
-public static void printPairSums(int[] array, int sum) {
-	//Arrays.sort(array);
-	int first = 0;
-	int last = array.length - 1;
-	while (first < last) {
-		int s = array[first] + array[last];
-		if (s == sum) {
-			System.out.println(array[first] + “ “ + array[last]);
-			++first;
-			--last;
-		} else {
-			if (s < sum) ++first;
-			else --last;
-		}
-	}
-}
 		\end{lstlisting}
 
 \end{description}

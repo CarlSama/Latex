@@ -1,0 +1,22 @@
+    
+\begin{description}
+    \item{\textbf{Question}}:\\%textbf加粗
+		Write a method which finds the maximum of two numbers. You should not use if-else or any other comparison operator.
+
+    \item{\textbf{Anslysis}}\\
+		通过$a-b$可以得知a和b的相对大小。因为不能使用if-else，所以只能通过构造表达式来得到较大的值。\\
+		$a - k * (a - b)$，其中ｋ为0/1，表征a是否小于b。重点就在于对这个表达式的构造。
+
+    \item{\textbf{Solution}}
+	\item{} : \fbox{时间复杂度O($1$) , 空间复杂度O($1$) }\\
+		\begin{lstlisting}
+		int getMax(int a, int b) {
+			int c = a - b;
+			int k = (c >> 31) & 0x1;
+			int max = a - k * c;
+			return max;
+		}
+		\end{lstlisting}
+
+\end{description}
+

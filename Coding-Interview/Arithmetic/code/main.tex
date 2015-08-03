@@ -1,5 +1,7 @@
-\ifx allfiles undefined \documentclass{article}
+\ifx allfiles undefined
+\documentclass[a4paper,10pt]{article}
 \usepackage{CJK}
+\usepackage{indentfirst}
 
 %%%代码
 \usepackage{color}
@@ -27,13 +29,14 @@
 
 \else
 
-\section{Background}
-\input{Array/background/main.tex}
-\newpage
+\subsection{Swap Value}
+\input{Arithmetic/code/swap-value.tex}
 
-\section{Code}
-\input{Array/code/main.tex}
-\newpage
+\subsection{Get Bigger}
+\input{Arithmetic/code/get-bigger.tex}
+
+\subsection{Trailing Zero}
+\input{Arithmetic/code/trailing-zero.tex}
 
 \fi
 
